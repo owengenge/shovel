@@ -116,7 +116,7 @@ export default function SessionForm({ sessions, setSessions, players, setPlayers
                             name="opponent"
                             value={newSession.opponent}
                             onChange={handleChange}
-                            required
+                            placeholder="Optional"
                         />
                     </label>
                 </section>
