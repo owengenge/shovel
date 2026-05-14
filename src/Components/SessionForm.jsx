@@ -7,7 +7,7 @@ export default function SessionForm({ sessions, setSessions, players, setPlayers
     const [singlePlayerInfo, setSinglePlayerInfo] = useState({ name: "", number: "" });
     const [newSession, setNewSession] = useState({
         players: [],
-        team: ""
+        opponent: ""
     });
 
     function handleChange(e) {
@@ -23,18 +23,17 @@ export default function SessionForm({ sessions, setSessions, players, setPlayers
         setSinglePlayerInfo((prev) => ({ ...prev, [name]: value }));
     }
 
+    function handleRemovePlayer(number) {
+        setPlayers(players.filter((player) => player.number !== number));
+    }
+
     function handleSubmit(e) {
         e.preventDefault();
         const sessionPlayers = singlePlayer ? [singlePlayerInfo] : players;
-        setSessions([
-            ...sessions,
-            {
-                ...newSession,
-                players: sessionPlayers,
-                sessionId: crypto.randomUUID(),
-                date: new Date()
-            },
-        ]);
+        const newEntry = { ...newSession, players: sessionPlayers, sessionId: crypto.randomUUID(), date: new Date() };
+        const updated = [...sessions, newEntry];
+        setSessions(updated);
+        console.log("sessions:", updated);
         setNewSession({ players: [], team: "", opponent: "" });
         setSinglePlayerInfo({ name: "", number: "" });
         setSeshAddBtnClicked(false);
@@ -67,7 +66,7 @@ export default function SessionForm({ sessions, setSessions, players, setPlayers
 
                 {singlePlayer ? (
                     <section className="player-info-section">
-                        <h3>Player Info</h3>
+                        <h3>Player</h3>
                         <label>
                             Name
                             <input
@@ -75,6 +74,7 @@ export default function SessionForm({ sessions, setSessions, players, setPlayers
                                 name="name"
                                 value={singlePlayerInfo.name}
                                 onChange={handleSinglePlayerChange}
+                                required
                             />
                         </label>
                         <label>
@@ -84,6 +84,7 @@ export default function SessionForm({ sessions, setSessions, players, setPlayers
                                 name="number"
                                 value={singlePlayerInfo.number}
                                 onChange={handleSinglePlayerChange}
+                                required
                             />
                         </label>
                     </section>
@@ -91,16 +92,23 @@ export default function SessionForm({ sessions, setSessions, players, setPlayers
                     <section className="player-info-section">
                         <h3>Players</h3>
                         {players.map((player) => (
-                            <p key={player.name} className="player-info">
-                                {player.name} <i>#{player.number}</i>
-                            </p>
+                            <div key={player.number}>
+                                <p className="player-info">
+                                    {player.name} <i>#{player.number}</i>
+                                </p>
+                                <button
+                                    type="button"
+                                    className="remove-player-btn"
+                                    onClick={() => handleRemovePlayer(player.number)}>-</button>
+                            </div>
+
                         ))}
                         <AddPlayer players={players} setPlayers={setPlayers} />
                     </section>
                 )}
 
                 <section className="game-info-section">
-                    <h3>Game Info</h3>
+                    <h3>Game</h3>
                     <label>
                         Opponent
                         <input
@@ -108,6 +116,7 @@ export default function SessionForm({ sessions, setSessions, players, setPlayers
                             name="opponent"
                             value={newSession.opponent}
                             onChange={handleChange}
+                            required
                         />
                     </label>
                 </section>

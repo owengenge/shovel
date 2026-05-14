@@ -17,6 +17,7 @@ export default function AddPlayer( {players, setPlayers} ) {
     }
     
     function handleAddPlayer() {
+        if (!newPlayer.name || !newPlayer.number) return;
         setPlayers([...players, newPlayer]);
         setNewPlayer({ name: "", number: "" });
         setAddBtnClicked(false);
@@ -51,8 +52,8 @@ export default function AddPlayer( {players, setPlayers} ) {
                             onChange={handleChange}
                         />
                     </label>
-                    <button onClick={handleAddPlayer}>Add</button>
-                    <button onClick={() => setAddBtnClicked(false)}>Cancel</button>
+                    <button type="button" onClick={handleAddPlayer}>Add</button>
+                    <button type="button" onClick={() => setAddBtnClicked(false)}>Cancel</button>
                 </div>
             )}
         </>
