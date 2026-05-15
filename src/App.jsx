@@ -13,6 +13,7 @@ function App() {
     <div>
         <header>
             <h1>SHOVEL</h1>
+            <p>Defense, decoded.</p>
             {!inSession && (
                 <nav>
                     <Link to="/">Home</Link>
