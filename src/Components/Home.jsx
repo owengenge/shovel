@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useOutletContext } from "react-router";
-import SessionForm from "./session/SessionForm";
+import SessionForm from "./new-session/SessionForm";
 
 /** Home screen. Shows the session list and toggles the create session form. */
 export default function Home() {

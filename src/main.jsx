@@ -2,7 +2,8 @@ import React from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router";
 import App from "./App";
-import Home from "./Components/Home";
+import Home from "./components/Home";
+import Session from "./components/track-session/Session";
 
 const router = createBrowserRouter([
   {
@@ -10,6 +11,7 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       { index: true, element: <Home /> },
+      { path: "session/:sessionId", element: <Session/> }
     ],
   },
 ]);

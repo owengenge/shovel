@@ -1,0 +1,68 @@
+/* Session top bar */
+.session-buttons-div {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+/* Attack location grids */
+.back-row-grid,
+.front-row-grid {
+    display: grid;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.back-row-grid {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.front-row-grid {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+/* Contact location grid */
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    grid-template-rows: repeat(3, auto);
+    gap: 8px;
+    justify-content: center;
+    margin: 16px 0;
+}
+
+.contact-grid button:nth-child(1) { grid-column: 2; grid-row: 1; } /* In Front */
+.contact-grid button:nth-child(2) { grid-column: 1; grid-row: 2; } /* Left */
+.contact-grid button:nth-child(3) { grid-column: 2; grid-row: 2; } /* Direct */
+.contact-grid button:nth-child(4) { grid-column: 3; grid-row: 2; } /* Right */
+.contact-grid button:nth-child(5) { grid-column: 2; grid-row: 3; } /* Back */
+
+/* Dig quality grid */
+.dig-quality-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+/* Selected button state */
+button.selected {
+    outline: 2px solid;
+}
+
+/* Player dropdown */
+#player-dropdown {
+    display: block;
+    margin: 16px auto;
+}
+
+/* Form layout */
+.new-action-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.new-action-form button[type="submit"] {
+    margin-top: 16px;
+    width: 100%;
+}
