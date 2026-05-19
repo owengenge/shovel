@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import AddPlayer from "./AddPlayer";
 import { useNavigate } from "react-router";
 
-/** Form for creating a new session. Supports single-player and multi-player modes. */
+/** Form for creating a new session */
 export default function SessionForm({ sessions, setSessions, players, setPlayers, setSeshAddBtnClicked }) {
     const [singlePlayer, setSinglePlayer] = useState(true);
     const [singlePlayerInfo, setSinglePlayerInfo] = useState({ name: "", number: "" });
@@ -36,7 +36,7 @@ export default function SessionForm({ sessions, setSessions, players, setPlayers
         const newEntry = { ...newSession, players: sessionPlayers, sessionId: crypto.randomUUID(), date: new Date() };
         const updated = [...sessions, newEntry];
         setSessions(updated);
-        setNewSession({ players: [], team: "", opponent: "" });
+        setNewSession({ players: [], opponent: "" });
         setSinglePlayerInfo({ name: "", number: "" });
         setSeshAddBtnClicked(false);
         navigate(`/session/${newEntry.sessionId}`);

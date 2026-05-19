@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams, useOutletContext } from "react-router";
-import PlayerDropdown from "./PlayerDropdown";
 import EndSessionButton from "./EndSession";
+import AttackGrid from "./AttackGrid";
+import ContactGrid from "./ContactGrid";
+import DigQuality from "./DigQuality";
+import PlayerSelect from "./PlayerSelect";
 
 /** Builds and adds a new action to actions */
 export default function Session() {
@@ -68,99 +71,11 @@ export default function Session() {
                 <EndSessionButton setEnded={setEnded} />
             </div>
             <form className="new-action-form" onSubmit={handleSubmit}>
-                <div className="back-row-grid">
-                    <button
-                        type="button"
-                        name="attackLocation" value="C"
-                        className={attackClass("C")}
-                        onClick={handleClick}>C</button>
-                    <button
-                        type="button"
-                        name="attackLocation" value="Back Pipe"
-                        className={attackClass("Back Pipe")}
-                        onClick={handleClick}>Back Pipe</button>
-                    <button
-                        type="button"
-                        name="attackLocation" value="Front Pipe"
-                        className={attackClass("Front Pipe")}
-                        onClick={handleClick}>Front Pipe</button>
-                    <button
-                        type="button"
-                        name="attackLocation" value="A"
-                        className={attackClass("A")}
-                        onClick={handleClick}>A</button>
-                </div>
-                <div className="front-row-grid">
-                    <button
-                        type="button"
-                        name="attackLocation" value="RS"
-                        className={attackClass("RS")}
-                        onClick={handleClick}>RS</button>
-                    <button
-                        type="button"
-                        name="attackLocation" value="50"
-                        className={attackClass("50")}
-                        onClick={handleClick}>50</button>
-                    <button
-                        type="button"
-                        name="attackLocation" value="30"
-                        className={attackClass("30")}
-                        onClick={handleClick}>30</button>
-                    <button
-                        type="button"
-                        name="attackLocation" value="LS"
-                        className={attackClass("LS")}
-                        onClick={handleClick}>LS</button>
-                </div>
-
-                {session?.players.length > 1 && (
-                    <PlayerDropdown players={session.players} setNewAction={setNewAction} />
-                )}
-
-                <div className="contact-grid">
-                    <button
-                        type="button"
-                        name="contactLocation" value="In Front"
-                        className={contactClass("In Front")}
-                        onClick={handleClick}>In Front</button>
-                    <button
-                        type="button"
-                        name="contactLocation" value="Left"
-                        className={contactClass("Left")}
-                        onClick={handleClick}>Left</button>
-                    <button
-                        type="button"
-                        name="contactLocation" value="Direct"
-                        className={contactClass("Direct")}
-                        onClick={handleClick}>Direct</button>
-                    <button
-                        type="button"
-                        name="contactLocation" value="Right"
-                        className={contactClass("Right")}
-                        onClick={handleClick}>Right</button>
-                    <button
-                        type="button"
-                        name="contactLocation" value="Above"
-                        className={contactClass("Above")}
-                        onClick={handleClick}>Above</button>
-                </div>
-
-                <div className="dig-quality-grid">
-                    <button
-                        type="button"
-                        name="digQuality" value="0"
-                        className={digClass("0")}
-                        onClick={handleClick}>Error</button>
-                    <button
-                        type="button"
-                        name="digQuality" value="1"
-                        className={digClass("1")}
-                        onClick={handleClick}>Good</button>
-                    <button
-                        type="button"
-                        name="digQuality" value="2"
-                        className={digClass("2")}
-                        onClick={handleClick}>Perfect</button>
+                <div className="session-grid">
+                    <AttackGrid handleClick={handleClick} attackClass={attackClass} />
+                    <PlayerSelect session={session} newAction={newAction} setNewAction={setNewAction} />
+                    <ContactGrid handleClick={handleClick} contactClass={contactClass} />
+                    <DigQuality handleClick={handleClick} digClass={digClass} />
                 </div>
                 <button type="submit">Done</button>
             </form>
