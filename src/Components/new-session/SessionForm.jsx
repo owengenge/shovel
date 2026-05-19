@@ -18,6 +18,10 @@ export default function SessionForm({ sessions, setSessions, players, setPlayers
 
     function handleSubmit(e) {
         e.preventDefault();
+        if (players.length === 0) {
+            alert("Add at least one player before starting a session.");
+            return;
+        }
         const newEntry = { ...newSession, players, sessionId: crypto.randomUUID(), date: new Date() };
         setSessions([...sessions, newEntry]);
         setNewSession({ opponent: "" });

@@ -9,12 +9,17 @@ export default function Home() {
     const [addBtnClicked, setAddBtnClicked] = useState(false);
 
     return (
-        <>
+        <div className="new-session-div">
             {!(addBtnClicked) ? (
-                <button
-                    id="add-session-btn"
-                    onClick={() => setAddBtnClicked(true)}
-                >+</button>
+                <div className="add-session-grid"> 
+                    <p>Start Tracking</p>
+                    <h2>New Session</h2>
+                    <p>One to multiple players</p>
+                    <button
+                        id="add-session-btn"
+                        onClick={() => setAddBtnClicked(true)}>+</button>
+                </div>
+                
             ) : (
                 <div id="create-session-div">
                     <h2>Create New Session</h2>
@@ -28,6 +33,6 @@ export default function Home() {
                     <button onClick={() => setAddBtnClicked(false)}>Cancel</button>
                 </div>
             )}
-        </>
+        </div>
     )
 }

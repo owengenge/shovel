@@ -11,15 +11,17 @@ function App() {
 
   return (
     <div>
-        <header>
-            <h1>SHOVEL</h1>
-            <p>Defense, decoded.</p>
-            {!inSession && (
-                <nav>
-                    <Link to="/">Home</Link>
-                </nav>
-            )}
-        </header>
+      <header>
+          <h2>SHOVEL</h2>
+          <p>Defense, decoded.</p>
+          {!inSession && (
+              <nav>
+                  <Link to="/">Home</Link>
+              </nav>
+          )}
+      </header>
+      <h1>Know your defense.</h1>
+      <p>In depth defensive stat tracking. Tap to log attack origin, contact location, and dig quality — court-side, in real time, with no setup.</p>
       <Outlet context={{ sessions, setSessions, actions, setActions }} />
     </div>
   );
