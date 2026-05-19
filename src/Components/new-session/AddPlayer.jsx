@@ -3,6 +3,7 @@ import React, { useState } from "react";
 /** Inline form for adding a player to the multi-player list. */
 export default function AddPlayer( {players, setPlayers} ) {
     const [addBtnClicked, setAddBtnClicked] = useState(false);
+    const showForm = addBtnClicked || players.length === 0;
     const [newPlayer, setNewPlayer] = useState({
         name: "",
         number: ""
@@ -18,6 +19,10 @@ export default function AddPlayer( {players, setPlayers} ) {
     
     function handleAddPlayer() {
         if (!newPlayer.name || !newPlayer.number) return;
+        if (players.some((p) => p.number === newPlayer.number)) {
+            alert(`#${newPlayer.number} is already in use.`);
+            return;
+        }
         setPlayers([...players, newPlayer]);
         setNewPlayer({ name: "", number: "" });
         setAddBtnClicked(false);
@@ -25,7 +30,7 @@ export default function AddPlayer( {players, setPlayers} ) {
 
     return (
         <>
-            {(!addBtnClicked) ? (
+            {(!showForm) ? (
                 <div className="add-player-div">
                     <button
                         id="add-player-btn"
@@ -52,8 +57,10 @@ export default function AddPlayer( {players, setPlayers} ) {
                             onChange={handleChange}
                         />
                     </label>
-                    <button type="button" onClick={handleAddPlayer}>Add</button>
-                    <button type="button" onClick={() => setAddBtnClicked(false)}>Cancel</button>
+                    <button type="button" onClick={handleAddPlayer}>Done</button>
+                    {players.length > 0 && (
+                        <button type="button" onClick={() => setAddBtnClicked(false)}>Cancel</button>
+                    )}
                 </div>
             )}
         </>

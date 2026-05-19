@@ -1,8 +1,50 @@
+/* Digs logged counter */
+#digs-logged {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
 /* Session top bar */
-.session-buttons-div {
+.session-top-bar {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     margin-bottom: 8px;
+}
+
+.session-buttons-div {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Two-column layout: attack on left, rest on right */
+.session-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto auto;
+    gap: 16px;
+}
+
+.attack-grid-div {
+    grid-column: 1;
+    grid-row: 1 / 4;
+}
+
+.player-select-div {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.contact-grid-div {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+.dig-quality-div {
+    grid-column: 2;
+    grid-row: 3;
 }
 
 /* Attack location grids */
@@ -24,36 +66,34 @@
 /* Contact location grid */
 .contact-grid {
     display: grid;
-    grid-template-columns: repeat(3, auto);
+    grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, auto);
     gap: 8px;
-    justify-content: center;
-    margin: 16px 0;
 }
 
 .contact-grid button:nth-child(1) { grid-column: 2; grid-row: 1; } /* In Front */
 .contact-grid button:nth-child(2) { grid-column: 1; grid-row: 2; } /* Left */
 .contact-grid button:nth-child(3) { grid-column: 2; grid-row: 2; } /* Direct */
 .contact-grid button:nth-child(4) { grid-column: 3; grid-row: 2; } /* Right */
-.contact-grid button:nth-child(5) { grid-column: 2; grid-row: 3; } /* Back */
+.contact-grid button:nth-child(5) { grid-column: 2; grid-row: 3; } /* Above */
 
 /* Dig quality grid */
 .dig-quality-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 8px;
-    margin-bottom: 8px;
+}
+
+/* Player select buttons */
+.player-select {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
 }
 
 /* Selected button state */
 button.selected {
     outline: 2px solid;
-}
-
-/* Player dropdown */
-#player-dropdown {
-    display: block;
-    margin: 16px auto;
 }
 
 /* Form layout */

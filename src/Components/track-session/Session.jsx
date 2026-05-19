@@ -10,6 +10,7 @@ import PlayerSelect from "./PlayerSelect";
 export default function Session() {
     const { sessionId } = useParams();
     const { sessions, actions, setActions } = useOutletContext();
+    const [numClicked, setNumClicked] = useState(0);
     const [newAction, setNewAction] = useState({
         player: {},
         attackLocation: "",
@@ -25,12 +26,19 @@ export default function Session() {
         const updated = [...actions, { ...newAction, sessionId, actionId: crypto.randomUUID() }];
         setActions(updated);
         console.log("actions:", updated);
+        setNumClicked(0);
         setNewAction({ player: {}, attackLocation: "", contactLocation: "", digQuality: "" });
     }
 
     function handleClick(e) {
         const { name, value } = e.target;
+        setNumClicked((prev) => prev + 1);
         setNewAction((prev) => ({ ...prev, [name]: value }));
+    }
+
+    function handleReset() {
+        setNewAction({ player: {}, attackLocation: "", contactLocation: "", digQuality: "" });
+        setNumClicked(0);
     }
 
     function handleUndo() {
@@ -52,23 +60,26 @@ export default function Session() {
     const session = sessions.find((item) => item.sessionId === sessionId);
 
     useEffect(() => {
-        if (session?.players.length === 1) {
-            setNewAction((prev) => ({ ...prev, player: session.players[0] }));
-        }
-    }, [sessionId]);
-
-    useEffect(() => {
         if (ended) navigate("/");
     }, [ended]);
     
+    if (!session) return null;
+
     return (
         <>
-            <div className="session-buttons-div">
-                <div>
-                    <button id="reset-action-btn" onClick={() => setNewAction({ player: {}, attackLocation: "", contactLocation: "", digQuality: "" })}>Reset</button>
-                    <button id="undo-action-btn" onClick={handleUndo}>Undo Action</button>
+            <div className="session-top-bar">
+                <div id="session-info">
+                    {session.opponent === '' ? <h2>Practice</h2> : <h2>vs. {session.opponent}</h2>}
+                    <div id="digs-logged">
+                        <p id="digs-logged-num">{actions.filter((action) => action.sessionId === sessionId).length}</p>
+                        <p>digs logged</p>
+                    </div>
                 </div>
-                <EndSessionButton setEnded={setEnded} />
+                <div className="session-buttons-div">
+                    <button id="reset-action-btn" onClick={handleReset}>Reset</button>
+                    <button id="undo-action-btn" onClick={handleUndo}>Undo</button>
+                    <EndSessionButton setEnded={setEnded} />
+                </div>
             </div>
             <form className="new-action-form" onSubmit={handleSubmit}>
                 <div className="session-grid">
@@ -77,7 +88,7 @@ export default function Session() {
                     <ContactGrid handleClick={handleClick} contactClass={contactClass} />
                     <DigQuality handleClick={handleClick} digClass={digClass} />
                 </div>
-                <button type="submit">Done</button>
+                { numClicked >= 3 && <button type="submit">Done</button> }
             </form>
         </>
     )

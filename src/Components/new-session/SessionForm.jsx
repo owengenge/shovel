@@ -4,26 +4,12 @@ import { useNavigate } from "react-router";
 
 /** Form for creating a new session */
 export default function SessionForm({ sessions, setSessions, players, setPlayers, setSeshAddBtnClicked }) {
-    const [singlePlayer, setSinglePlayer] = useState(true);
-    const [singlePlayerInfo, setSinglePlayerInfo] = useState({ name: "", number: "" });
-    const [newSession, setNewSession] = useState({
-        players: [],
-        opponent: ""
-    });
-
+    const [newSession, setNewSession] = useState({ opponent: "" });
     const navigate = useNavigate();
 
     function handleChange(e) {
         const { name, value } = e.target;
-        setNewSession((prev) => ({
-            ...prev,
-            [name]: value,
-        }));
-    }
-
-    function handleSinglePlayerChange(e) {
-        const { name, value } = e.target;
-        setSinglePlayerInfo((prev) => ({ ...prev, [name]: value }));
+        setNewSession((prev) => ({ ...prev, [name]: value }));
     }
 
     function handleRemovePlayer(number) {
@@ -32,12 +18,9 @@ export default function SessionForm({ sessions, setSessions, players, setPlayers
 
     function handleSubmit(e) {
         e.preventDefault();
-        const sessionPlayers = singlePlayer ? [singlePlayerInfo] : players;
-        const newEntry = { ...newSession, players: sessionPlayers, sessionId: crypto.randomUUID(), date: new Date() };
-        const updated = [...sessions, newEntry];
-        setSessions(updated);
-        setNewSession({ players: [], opponent: "" });
-        setSinglePlayerInfo({ name: "", number: "" });
+        const newEntry = { ...newSession, players, sessionId: crypto.randomUUID(), date: new Date() };
+        setSessions([...sessions, newEntry]);
+        setNewSession({ opponent: "" });
         setSeshAddBtnClicked(false);
         navigate(`/session/${newEntry.sessionId}`);
     }
@@ -45,70 +28,21 @@ export default function SessionForm({ sessions, setSessions, players, setPlayers
     return (
         <div>
             <form className="create-session-form" onSubmit={handleSubmit}>
-                <fieldset>
-                    <legend>Tracking Mode</legend>
-                    <label>
-                        <input
-                            type="radio"
-                            name="mode"
-                            checked={singlePlayer}
-                            onChange={() => setSinglePlayer(true)}
-                        />
-                        One Player
-                    </label>
-                    <label>
-                        <input
-                            type="radio"
-                            name="mode"
-                            checked={!singlePlayer}
-                            onChange={() => setSinglePlayer(false)}
-                        />
-                        Multiple Players
-                    </label>
-                </fieldset>
-
-                {singlePlayer ? (
-                    <section className="player-info-section">
-                        <h3>Player</h3>
-                        <label>
-                            Name
-                            <input
-                                type="text"
-                                name="name"
-                                value={singlePlayerInfo.name}
-                                onChange={handleSinglePlayerChange}
-                                required
-                            />
-                        </label>
-                        <label>
-                            Jersey Number
-                            <input
-                                type="text"
-                                name="number"
-                                value={singlePlayerInfo.number}
-                                onChange={handleSinglePlayerChange}
-                                required
-                            />
-                        </label>
-                    </section>
-                ) : (
-                    <section className="player-info-section">
-                        <h3>Players</h3>
-                        {players.map((player) => (
-                            <div key={player.number}>
-                                <p className="player-info">
-                                    {player.name} <i>#{player.number}</i>
-                                </p>
-                                <button
-                                    type="button"
-                                    className="remove-player-btn"
-                                    onClick={() => handleRemovePlayer(player.number)}>-</button>
-                            </div>
-
-                        ))}
-                        <AddPlayer players={players} setPlayers={setPlayers} />
-                    </section>
-                )}
+                <section className="player-info-section">
+                    <h3>Players</h3>
+                    {players.map((player) => (
+                        <div key={player.number}>
+                            <p className="player-info">
+                                {player.name} <i>#{player.number}</i>
+                            </p>
+                            <button
+                                type="button"
+                                className="remove-player-btn"
+                                onClick={() => handleRemovePlayer(player.number)}>-</button>
+                        </div>
+                    ))}
+                    <AddPlayer players={players} setPlayers={setPlayers} />
+                </section>
 
                 <section className="game-info-section">
                     <h3>Game</h3>
