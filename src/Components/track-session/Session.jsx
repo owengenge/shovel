@@ -88,7 +88,9 @@ export default function Session() {
                     <ContactGrid handleClick={handleClick} contactClass={contactClass} />
                     <DigQuality handleClick={handleClick} digClass={digClass} />
                 </div>
-                { numClicked >= 3 && <button type="submit">Done</button> }
+                { newAction.attackLocation && newAction.contactLocation && newAction.digQuality && newAction.player?.number && (
+                    <button type="submit">Done</button>
+                )}
             </form>
         </>
     )
