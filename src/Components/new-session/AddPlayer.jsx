@@ -23,7 +23,8 @@ export default function AddPlayer( {players, setPlayers} ) {
             alert(`#${newPlayer.number} is already in use.`);
             return;
         }
-        setPlayers([...players, newPlayer]);
+        const name = newPlayer.name.trim().replace(/\b\w/g, (c) => c.toUpperCase());
+        setPlayers([...players, { ...newPlayer, name, playerId: crypto.randomUUID() }]);
         setNewPlayer({ name: "", number: "" });
         setAddBtnClicked(false);
     }

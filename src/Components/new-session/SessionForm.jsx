@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import AddPlayer from "./AddPlayer";
 import { useNavigate } from "react-router";
+import getSeason from "../../utils/getSeason";
 
 /** Form for creating a new session */
 export default function SessionForm({ sessions, setSessions, players, setPlayers, setSeshAddBtnClicked }) {
@@ -12,8 +13,8 @@ export default function SessionForm({ sessions, setSessions, players, setPlayers
         setNewSession((prev) => ({ ...prev, [name]: value }));
     }
 
-    function handleRemovePlayer(number) {
-        setPlayers(players.filter((player) => player.number !== number));
+    function handleRemovePlayer(playerId) {
+        setPlayers(players.filter((player) => player.playerId !== playerId));
     }
 
     function handleSubmit(e) {
@@ -22,7 +23,8 @@ export default function SessionForm({ sessions, setSessions, players, setPlayers
             alert("Add at least one player before starting a session.");
             return;
         }
-        const newEntry = { ...newSession, players, sessionId: crypto.randomUUID(), date: new Date() };
+        const date = new Date();
+        const newEntry = { ...newSession, players, sessionId: crypto.randomUUID(), date, season: getSeason(date) };
         setSessions([...sessions, newEntry]);
         setNewSession({ opponent: "" });
         setSeshAddBtnClicked(false);
@@ -35,14 +37,14 @@ export default function SessionForm({ sessions, setSessions, players, setPlayers
                 <section className="player-info-section">
                     <h3>Players</h3>
                     {players.map((player) => (
-                        <div key={player.number}>
+                        <div key={player.playerId}>
                             <p className="player-info">
                                 {player.name} <i>#{player.number}</i>
                             </p>
                             <button
                                 type="button"
                                 className="remove-player-btn"
-                                onClick={() => handleRemovePlayer(player.number)}>-</button>
+                                onClick={() => handleRemovePlayer(player.playerId)}>-</button>
                         </div>
                     ))}
                     <AddPlayer players={players} setPlayers={setPlayers} />
