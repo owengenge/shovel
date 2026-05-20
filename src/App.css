@@ -96,6 +96,159 @@ button.selected {
     outline: 2px solid;
 }
 
+/* Distribution bar */
+.distribution-card {
+    width: 100%;
+}
+
+.dist-bar {
+    display: flex;
+    height: 36px;
+    border-radius: 18px;
+    overflow: hidden;
+    width: 100%;
+    margin: 12px 0;
+}
+
+.dist-segment {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 0.8rem;
+    font-weight: 600;
+    transition: width 0.3s ease;
+}
+
+.dist-labels {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 8px;
+}
+
+.dist-label-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+}
+
+.dist-score {
+    font-size: 1.4rem;
+    font-weight: 700;
+}
+
+.dist-level {
+    font-size: 0.65rem;
+    color: #888;
+    margin: 0;
+    letter-spacing: 0.05em;
+}
+
+.dist-count {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+/* Contact stats grid (court layout) */
+.contact-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, auto);
+    gap: 8px;
+    margin-top: 12px;
+}
+
+/* Zone card (grid view) */
+.zone-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.zone-card-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #888;
+    margin: 0;
+}
+
+.zone-card-pct {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.zone-card-track {
+    height: 4px;
+    background: #e0e0e0;
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.zone-card-fill {
+    height: 100%;
+    background: #4CAF50;
+    border-radius: 2px;
+    transition: width 0.3s ease;
+}
+
+.zone-card-n {
+    font-size: 0.75rem;
+    color: #888;
+    margin: 0;
+}
+
+/* Zone bar (bar view) */
+.zone-bar-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.zone-bar {
+    display: grid;
+    grid-template-columns: 80px 1fr 44px 40px;
+    align-items: center;
+    gap: 8px;
+}
+
+.zone-bar-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.zone-bar-track {
+    height: 8px;
+    background: #e0e0e0;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.zone-bar-fill {
+    height: 100%;
+    background: #4CAF50;
+    border-radius: 4px;
+    transition: width 0.3s ease;
+}
+
+.zone-bar-pct {
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-align: right;
+}
+
+.zone-bar-n {
+    font-size: 0.75rem;
+    color: #888;
+}
+
 /* Form layout */
 .new-action-form {
     display: flex;
