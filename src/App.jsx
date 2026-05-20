@@ -23,6 +23,11 @@ function App() {
           )}
       </header>
       <Outlet context={{ sessions, setSessions, actions, setActions }} />
+      <footer>
+        <hr></hr>
+        <p>v0.1 · Indoor 6s</p>
+        <p>Built by Owen Genge</p>
+      </footer>
     </div>
   );
 }

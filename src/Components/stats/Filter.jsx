@@ -1,7 +1,7 @@
 import React from "react";
 
 /** Dropdown that updates filters on selection. Also displays the unique items to filter */
-export default function Filter({ setFilters, type, sessions }) {
+export default function Filter({ setFilters, filters, type, sessions }) {
 
     function handleSelect(e) {
         const { name, value } = e.target;
@@ -16,7 +16,7 @@ export default function Filter({ setFilters, type, sessions }) {
                 ).values()
             ];
             return (
-                <select name="playerId" onChange={handleSelect}>
+                <select name="playerId" value={filters.playerId} onChange={handleSelect}>
                     <option value="">All Players</option>
                     {uniquePlayers.map((p) => (
                         <option key={p.playerId} value={p.playerId}>
@@ -28,7 +28,7 @@ export default function Filter({ setFilters, type, sessions }) {
         }
         case "session":
             return (
-                <select name="session" onChange={handleSelect}>
+                <select name="sessionId" value={filters.sessionId} onChange={handleSelect}>
                     <option value="">All Sessions</option>
                     {sessions.map((s) => (
                         <option key={s.sessionId} value={s.sessionId}>
@@ -40,7 +40,7 @@ export default function Filter({ setFilters, type, sessions }) {
         case "opponent": {
             const uniqueOpponents = [...new Set(sessions.map((s) => s.opponent).filter(Boolean))];
             return (
-                <select name="opponent" onChange={handleSelect}>
+                <select name="opponent" value={filters.opponent} onChange={handleSelect}>
                     <option value="">All Opponents</option>
                     {uniqueOpponents.map((o) => (
                         <option key={o} value={o}>{o}</option>
@@ -51,7 +51,7 @@ export default function Filter({ setFilters, type, sessions }) {
         case "season": {
             const uniqueSeasons = [...new Set(sessions.map((s) => s.season).filter(Boolean))];
             return (
-                <select name="season" onChange={handleSelect}>
+                <select name="season" value={filters.season} onChange={handleSelect}>
                     <option value="">All Seasons</option>
                     {uniqueSeasons.map((s) => (
                         <option key={s} value={s}>{s}</option>

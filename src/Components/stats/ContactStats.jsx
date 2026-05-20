@@ -1,5 +1,6 @@
 import React from "react";
 import ZoneCard from "./ZoneCard";
+import getContactStats from "../../utils/getContactStats";
 
 const zones = [
     { location: "Above", col: 2, row: 1 },
@@ -10,19 +11,17 @@ const zones = [
 ];
 
 export default function ContactStats({ barView, filteredActions }) {
+    const zonesWithStats = zones.map((z) => ({ ...z, ...getContactStats(filteredActions, z.location) }));
+
     if (barView) {
-        const sorted = [...zones].sort((a, b) => {
-            const pa = filteredActions.filter(x => x.contactLocation === a.location && [2,3].includes({error:0,poor:1,good:2,perfect:3}[x.digQuality])).length;
-            const pb = filteredActions.filter(x => x.contactLocation === b.location && [2,3].includes({error:0,poor:1,good:2,perfect:3}[x.digQuality])).length;
-            return pb - pa;
-        });
+        const sorted = [...zonesWithStats].sort((a, b) => (b.p ?? -1) - (a.p ?? -1));
         return (
             <div className="contact-stats-div">
                 <h2>Contact Location</h2>
                 <p>Positive touch % by where the ball was contacted</p>
                 <div className="zone-bar-list">
-                    {sorted.map(({ location }) => (
-                        <ZoneCard key={location} contactLocation={location} actions={filteredActions} barView />
+                    {sorted.map(({ location, n, p }) => (
+                        <ZoneCard key={location} label={location} n={n} p={p} barView />
                     ))}
                 </div>
             </div>
@@ -34,9 +33,9 @@ export default function ContactStats({ barView, filteredActions }) {
             <h2>Contact Location</h2>
             <p>Positive touch % by where the ball was contacted</p>
             <div className="contact-stats-grid">
-                {zones.map(({ location, col, row }) => (
+                {zonesWithStats.map(({ location, col, row, n, p }) => (
                     <div key={location} style={{ gridColumn: col, gridRow: row }}>
-                        <ZoneCard contactLocation={location} actions={filteredActions} barView={false} />
+                        <ZoneCard label={location} n={n} p={p} barView={false} />
                     </div>
                 ))}
             </div>

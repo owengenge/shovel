@@ -1,14 +1,12 @@
 import React from "react";
-import getContactStats from "../../utils/getContactStats";
 
-export default function ZoneCard({ contactLocation, actions, barView }) {
-    const { n, p } = getContactStats(actions, contactLocation);
+export default function ZoneCard({ label, n, p, barView }) {
     const display = p !== null ? `${p}%` : "—";
 
     if (barView) {
         return (
             <div className="zone-bar">
-                <span className="zone-bar-label">{contactLocation}</span>
+                <span className="zone-bar-label">{label}</span>
                 <div className="zone-bar-track">
                     <div className="zone-bar-fill" style={{ width: p !== null ? `${p}%` : "0%" }} />
                 </div>
@@ -20,7 +18,7 @@ export default function ZoneCard({ contactLocation, actions, barView }) {
 
     return (
         <div className="zone-card">
-            <p className="zone-card-label">{contactLocation}</p>
+            <p className="zone-card-label">{label}</p>
             <h2 className="zone-card-pct">{display}</h2>
             <div className="zone-card-track">
                 <div className="zone-card-fill" style={{ width: p !== null ? `${p}%` : "0%" }} />

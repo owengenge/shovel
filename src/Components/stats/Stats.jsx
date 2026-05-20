@@ -4,6 +4,7 @@ import Filter from "./Filter";
 import StatCard from "./StatCard";
 import ClearFilters from "./ClearFilters";
 import ContactStats from "./ContactStats";
+import AttackStats from "./AttackStats";
 
 export default function Stats() {
     const { sessions, actions } = useOutletContext();
@@ -32,10 +33,10 @@ export default function Stats() {
         <div>
             <h1>Stats</h1>
             <div className="filters-div">
-                <Filter type="player" sessions={sessions} setFilters={setFilters} />
-                <Filter type="session" sessions={sessions} setFilters={setFilters} />
-                <Filter type="opponent" sessions={sessions} setFilters={setFilters} />
-                <Filter type="season" sessions={sessions} setFilters={setFilters} />
+                <Filter type="player" sessions={sessions} setFilters={setFilters} filters={filters} />
+                <Filter type="session" sessions={sessions} setFilters={setFilters} filters={filters} />
+                <Filter type="opponent" sessions={sessions} setFilters={setFilters} filters={filters} />
+                <Filter type="season" sessions={sessions} setFilters={setFilters} filters={filters} />
                 <ClearFilters setFilters={setFilters} />
             </div>
             <hr></hr>
@@ -51,7 +52,7 @@ export default function Stats() {
                 onClick={() => SetBarView((prev) => !prev)}>{barView ? "Grid View" : "Bar View"}</button>
             <ContactStats barView={barView} filteredActions={filteredActions} />
             <hr></hr>
-            
+            <AttackStats barView={barView} filteredActions={filteredActions} />
         </div>
     );
 }
