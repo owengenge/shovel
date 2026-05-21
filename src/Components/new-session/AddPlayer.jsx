@@ -33,11 +33,15 @@ export default function AddPlayer( {players, setPlayers, sessions} ) {
             return;
         }
         if (!newPlayer.name || !newPlayer.number) return;
+        const name = newPlayer.name.trim().replace(/\b\w/g, (c) => c.toUpperCase());
         if (players.some((p) => p.number === newPlayer.number)) {
             alert(`#${newPlayer.number} is already in use.`);
             return;
         }
-        const name = newPlayer.name.trim().replace(/\b\w/g, (c) => c.toUpperCase());
+        if (existingPlayers.some((p) => p.number === newPlayer.number && p.name.toLowerCase() === name.toLowerCase())) {
+            alert(`${name} #${newPlayer.number} already exists. Use "Add Existing Player" instead.`);
+            return;
+        }
         setPlayers([...players, { ...newPlayer, name, playerId: crypto.randomUUID() }]);
         setNewPlayer({ name: "", number: "" });
         setAddBtnClicked(false);

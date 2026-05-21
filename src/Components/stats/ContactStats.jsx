@@ -3,18 +3,20 @@ import ZoneCard from "./ZoneCard";
 import getContactStats from "../../utils/getContactStats";
 
 const zones = [
-    { location: "Above", col: 2, row: 1 },
-    { location: "Left", col: 1, row: 2 },
-    { location: "Direct", col: 2, row: 2 },
-    { location: "Right", col: 3, row: 2 },
-    { location: "In Front", col: 2, row: 3 },
+    { location: "In Front", col: 2, row: 1 },
+    { location: "Left",     col: 1, row: 2 },
+    { location: "Direct",   col: 2, row: 2 },
+    { location: "Right",    col: 3, row: 2 },
+    { location: "Above",    col: 2, row: 3 },
 ];
+
+const barOrder = ["Direct", "Right", "Left", "In Front", "Above"];
 
 export default function ContactStats({ barView, filteredActions, showHeader = true }) {
     const zonesWithStats = zones.map((z) => ({ ...z, ...getContactStats(filteredActions, z.location) }));
 
     if (barView) {
-        const sorted = [...zonesWithStats].sort((a, b) => (b.p ?? -1) - (a.p ?? -1));
+        const ordered = barOrder.map((loc) => zonesWithStats.find((z) => z.location === loc));
         return (
             <div className="contact-stats-div">
                 {showHeader && (
@@ -24,7 +26,7 @@ export default function ContactStats({ barView, filteredActions, showHeader = tr
                     </>
                 )}
                 <div className="zone-bar-list">
-                    {sorted.map(({ location, n, p }) => (
+                    {ordered.map(({ location, n, p }) => (
                         <ZoneCard key={location} label={location} n={n} p={p} barView />
                     ))}
                 </div>

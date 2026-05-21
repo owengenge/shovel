@@ -5,11 +5,12 @@ import AttackGrid from "./AttackGrid";
 import ContactGrid from "./ContactGrid";
 import DigQuality from "./DigQuality";
 import PlayerSelect from "./PlayerSelect";
+import AddPlayer from "../new-session/AddPlayer";
 
 /** Builds and adds a new action to actions */
 export default function Session() {
     const { sessionId } = useParams();
-    const { sessions, actions, setActions } = useOutletContext();
+    const { sessions, setSessions, actions, setActions } = useOutletContext();
     const [numClicked, setNumClicked] = useState(0);
     const [newAction, setNewAction] = useState({
         player: {},
@@ -19,6 +20,7 @@ export default function Session() {
     });
 
     const [ended, setEnded] = useState(false);
+    const [editingPlayers, setEditingPlayers] = useState(false);
     const navigate = useNavigate();
 
     function handleSubmit(e) {
@@ -43,6 +45,19 @@ export default function Session() {
 
     function handleUndo() {
         setActions(actions.slice(0, -1));
+    }
+
+    function updateSessionPlayers(newPlayers) {
+        setSessions(sessions.map((s) =>
+            s.sessionId === sessionId ? { ...s, players: newPlayers } : s
+        ));
+    }
+
+    function handleRemoveSessionPlayer(playerId) {
+        updateSessionPlayers(session.players.filter((p) => p.playerId !== playerId));
+        if (newAction.player?.playerId === playerId) {
+            setNewAction((prev) => ({ ...prev, player: {} }));
+        }
     }
 
     function attackClass(value) {
@@ -76,11 +91,29 @@ export default function Session() {
                     </div>
                 </div>
                 <div className="session-buttons-div">
-                    <button id="reset-action-btn" onClick={handleReset}>Reset</button>
+                    <button id="reset-action-btn" onClick={handleReset}>Reset Action</button>
                     <button id="undo-action-btn" onClick={handleUndo}>Undo</button>
+                    <button type="button" onClick={() => setEditingPlayers((prev) => !prev)}>
+                        {editingPlayers ? "Done Editing" : "Edit Players"}
+                    </button>
                     <EndSessionButton setEnded={setEnded} />
                 </div>
             </div>
+            {editingPlayers && (
+                <div className="edit-players-panel">
+                    {session.players.map((player) => (
+                        <div key={player.playerId} className="edit-player-row">
+                            <span>{player.name} #{player.number}</span>
+                            <button type="button" onClick={() => handleRemoveSessionPlayer(player.playerId)}>-</button>
+                        </div>
+                    ))}
+                    <AddPlayer
+                        players={session.players}
+                        setPlayers={updateSessionPlayers}
+                        sessions={sessions}
+                    />
+                </div>
+            )}
             <form className="new-action-form" onSubmit={handleSubmit}>
                 <div className="session-grid">
                     <AttackGrid handleClick={handleClick} attackClass={attackClass} />
@@ -88,9 +121,10 @@ export default function Session() {
                     <ContactGrid handleClick={handleClick} contactClass={contactClass} />
                     <DigQuality handleClick={handleClick} digClass={digClass} />
                 </div>
-                { newAction.attackLocation && newAction.contactLocation && newAction.digQuality && newAction.player?.number && (
-                    <button type="submit">Done</button>
-                )}
+                <button
+                    type="submit"
+                    disabled={!newAction.attackLocation || !newAction.contactLocation || !newAction.digQuality || !newAction.player?.number}
+                >Done</button>
             </form>
         </>
     )

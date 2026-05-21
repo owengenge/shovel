@@ -50,7 +50,7 @@ export default function Stats() {
             <hr></hr>
             <button 
                 className="toggle-view" 
-                onClick={() => SetBarView((prev) => !prev)}>{barView ? "Grid View" : "Bar View"}</button>
+                onClick={() => SetBarView((prev) => !prev)}>Toggle View</button>
             <ContactStats barView={barView} filteredActions={filteredActions} />
             <hr></hr>
             <AttackStats barView={barView} filteredActions={filteredActions} />
