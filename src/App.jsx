@@ -14,7 +14,7 @@ function App() {
     <div>
       <header>
           <h2>SHOVEL</h2>
-          <p>Defense, decoded.</p>
+          <p>Uncover the truth behind every dig.</p>
           {!inSession && (
               <nav>
                   <Link to="/">Home</Link>

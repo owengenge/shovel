@@ -1,7 +1,5 @@
 import React from "react";
-import ZoneCard from "./ZoneCard";
 import AttackZoneCard from "./AttackZoneCard";
-import getAttackStats from "../../utils/getAttackStats";
 
 const zones = [
     { location: "C",          abbr: "C",  name: "C",          rowLabel: "Back Row",  col: 1, gridRow: 1 },
@@ -14,23 +12,9 @@ const zones = [
     { location: "LS",         abbr: "LS", name: "Left Side",  rowLabel: "Front Row", col: 4, gridRow: 2 },
 ];
 
+/** Displays positive % per attack location.
+ *  Grid view: each card shows a contact bar list. Bar view: each card shows a contact court grid. */
 export default function AttackStats({ barView, filteredActions }) {
-    if (barView) {
-        const zonesWithStats = zones.map((z) => ({ ...z, ...getAttackStats(filteredActions, z.location) }));
-        const sorted = [...zonesWithStats].sort((a, b) => (b.p ?? -1) - (a.p ?? -1));
-        return (
-            <div className="attack-stats-div">
-                <h2>Attack Location</h2>
-                <p>Positive touch % by where the attack came from</p>
-                <div className="zone-bar-list">
-                    {sorted.map(({ location, n, p }) => (
-                        <ZoneCard key={location} label={location} n={n} p={p} barView />
-                    ))}
-                </div>
-            </div>
-        );
-    }
-
     return (
         <div className="attack-stats-div">
             <h2>Attack Location</h2>
@@ -44,6 +28,7 @@ export default function AttackStats({ barView, filteredActions }) {
                             name={name}
                             rowLabel={rowLabel}
                             actions={filteredActions}
+                            barView={barView}
                         />
                     </div>
                 ))}

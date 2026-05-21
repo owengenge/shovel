@@ -1,16 +1,10 @@
 import React from "react";
 import getAttackStats from "../../utils/getAttackStats";
-import getContactStats from "../../utils/getContactStats";
+import ContactStats from "./ContactStats";
 
-const contactZones = [
-    { location: "Above",    col: 2, row: 1 },
-    { location: "Left",     col: 1, row: 2 },
-    { location: "Direct",   col: 2, row: 2 },
-    { location: "Right",    col: 3, row: 2 },
-    { location: "In Front", col: 2, row: 3 },
-];
-
-export default function AttackZoneCard({ location, abbr, name, rowLabel, actions }) {
+/** Card for a single attack zone. Shows overall positive % and a contact location breakdown filtered to that zone.
+ *  Grid view: contact bars. Bar view: contact court grid. */
+export default function AttackZoneCard({ location, abbr, name, rowLabel, actions, barView }) {
     const { n, p } = getAttackStats(actions, location);
     const display = p !== null ? `${p}%` : "—";
     const zoneActions = actions.filter((a) => a.attackLocation === location);
@@ -31,22 +25,7 @@ export default function AttackZoneCard({ location, abbr, name, rowLabel, actions
             <div className="attack-zone-bar-track">
                 <div className="attack-zone-bar-fill" style={{ width: p !== null ? `${p}%` : "0%" }} />
             </div>
-            <div className="attack-contact-grid">
-                {contactZones.map(({ location: cloc, col, row }) => {
-                    const { n: cn, p: cp } = getContactStats(zoneActions, cloc);
-                    return (
-                        <div
-                            key={cloc}
-                            className={`attack-contact-cell${cn > 0 ? " has-data" : ""}`}
-                            style={{ gridColumn: col, gridRow: row }}
-                        >
-                            <span className="attack-contact-label">{cloc.toUpperCase()}</span>
-                            <span className="attack-contact-pct">{cp !== null ? `${cp}%` : "—"}</span>
-                            <span className="attack-contact-n">n={cn}</span>
-                        </div>
-                    );
-                })}
-            </div>
+            <ContactStats barView={barView} filteredActions={zoneActions} showHeader={false} />
         </div>
     );
 }

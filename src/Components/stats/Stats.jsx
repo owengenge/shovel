@@ -6,6 +6,7 @@ import ClearFilters from "./ClearFilters";
 import ContactStats from "./ContactStats";
 import AttackStats from "./AttackStats";
 
+/** Stats page. Holds filter state, computes filteredActions, and renders all stat sections. */
 export default function Stats() {
     const { sessions, actions } = useOutletContext();
 

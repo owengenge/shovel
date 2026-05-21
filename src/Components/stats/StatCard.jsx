@@ -1,5 +1,6 @@
 import React from "react";
 
+/** Displays a single overall stat (total touches, positive touch %, avg dig quality, or quality distribution). */
 export default function StatCard( {type, filteredActions} ) {
     const qualityScore = { error: 0, poor: 1, good: 2, perfect: 3 };
     const posTouches = filteredActions.filter(a => qualityScore[a.digQuality] >= 2).length;

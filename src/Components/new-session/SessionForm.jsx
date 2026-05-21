@@ -27,6 +27,7 @@ export default function SessionForm({ sessions, setSessions, players, setPlayers
         const newEntry = { ...newSession, players, sessionId: crypto.randomUUID(), date, season: getSeason(date) };
         setSessions([...sessions, newEntry]);
         setNewSession({ opponent: "" });
+        setPlayers([]);
         setSeshAddBtnClicked(false);
         navigate(`/session/${newEntry.sessionId}`);
     }
@@ -47,7 +48,8 @@ export default function SessionForm({ sessions, setSessions, players, setPlayers
                                 onClick={() => handleRemovePlayer(player.playerId)}>-</button>
                         </div>
                     ))}
-                    <AddPlayer players={players} setPlayers={setPlayers} />
+                    <AddPlayer players={players} setPlayers={setPlayers} sessions={sessions}/>
+                    
                 </section>
 
                 <section className="game-info-section">

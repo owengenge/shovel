@@ -1,5 +1,6 @@
 import React from "react";
 
+/** Displays positive % and attempt count for a single zone. Renders as a card or a bar row depending on barView. */
 export default function ZoneCard({ label, n, p, barView }) {
     const display = p !== null ? `${p}%` : "—";
 

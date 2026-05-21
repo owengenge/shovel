@@ -1,5 +1,6 @@
 import React from "react";
 
+/** Resets all filters back to their empty defaults. */
 export default function ClearFilters ({ setFilters }) {
     function handleClick() {
         setFilters({

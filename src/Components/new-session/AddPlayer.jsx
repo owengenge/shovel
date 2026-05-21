@@ -1,13 +1,19 @@
 import React, { useState } from "react";
 
-/** Inline form for adding a player to the multi-player list. */
-export default function AddPlayer( {players, setPlayers} ) {
+/** Inline form for adding a new OR exisiting player to the players list. */
+export default function AddPlayer( {players, setPlayers, sessions} ) {
     const [addBtnClicked, setAddBtnClicked] = useState(false);
-    const showForm = addBtnClicked || players.length === 0;
+    const showForm = addBtnClicked;
     const [newPlayer, setNewPlayer] = useState({
         name: "",
         number: ""
     })
+
+    const existingPlayers = [
+        ...new Map(
+            sessions.flatMap((s) => s.players).map((p) => [p.playerId, p])
+        ).values()
+    ];
 
     function handleChange (e) {
         const {name, value} = e.target;
@@ -17,7 +23,15 @@ export default function AddPlayer( {players, setPlayers} ) {
         }))
     }
     
-    function handleAddPlayer() {
+    function handleAddPlayer(existingPlayer) {
+        if (existingPlayer) {
+            if (players.some((p) => p.number === existingPlayer.number)) {
+                alert(`#${existingPlayer.number} is already in use.`);
+                return;
+            }
+            setPlayers([...players, existingPlayer]);
+            return;
+        }
         if (!newPlayer.name || !newPlayer.number) return;
         if (players.some((p) => p.number === newPlayer.number)) {
             alert(`#${newPlayer.number} is already in use.`);
@@ -36,7 +50,23 @@ export default function AddPlayer( {players, setPlayers} ) {
                     <button
                         id="add-player-btn"
                         onClick={() => setAddBtnClicked(true)}
-                    >+</button>
+                    >Create New Player</button>
+                    <select
+                        value=""
+                        onChange={(e) => {
+                            const player = existingPlayers.find((p) => p.playerId === e.target.value);
+                            if (player) handleAddPlayer(player);
+                        }}
+                    >
+                        <option value="">Add Existing Player</option>
+                        {existingPlayers
+                            .filter((p) => !players.some((sp) => sp.playerId === p.playerId))
+                            .map((p) => (
+                                <option key={p.playerId} value={p.playerId}>
+                                    {p.name} #{p.number}
+                                </option>
+                            ))}
+                    </select>
                 </div>
             ) : (
                 <div className="add-player-div">
@@ -58,7 +88,7 @@ export default function AddPlayer( {players, setPlayers} ) {
                             onChange={handleChange}
                         />
                     </label>
-                    <button type="button" onClick={handleAddPlayer}>Done</button>
+                    <button type="button" onClick={() => handleAddPlayer()}>Done</button>
                     {players.length > 0 && (
                         <button type="button" onClick={() => setAddBtnClicked(false)}>Cancel</button>
                     )}

@@ -1,5 +1,6 @@
 const qualityScore = { error: 0, poor: 1, good: 2, perfect: 3 };
 
+/** Returns n (attempts) and p (positive touch %) for a given contact location. p is null if n is 0. */
 export default function getContactStats(actions, contactLocation) {
     const zone = actions.filter((a) => a.contactLocation === contactLocation);
     const n = zone.length;
