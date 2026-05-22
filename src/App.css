@@ -1,403 +1,1218 @@
-/* Digs logged counter */
-#digs-logged {
-    display: flex;
-    align-items: center;
-    gap: 4px;
+/* ============================================================
+   Shovel — Component styles
+   ============================================================ */
+
+/* ============================================================
+   HOME
+   ============================================================ */
+.new-session-div {
+    margin: 32px 0 48px;
+    max-width: 760px;
 }
 
-/* Session top bar */
+.add-session-grid {
+    background: var(--accent);
+    color: var(--accent-ink);
+    border: 2px solid var(--ink);
+    border-radius: var(--r-xl);
+    padding: 40px 40px 36px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto auto;
+    grid-template-areas:
+        "eyebrow plus"
+        "title   plus"
+        "meta    plus";
+    align-items: center;
+    column-gap: 24px;
+    row-gap: 6px;
+    box-shadow: 0 10px 0 var(--ink);
+    transition: transform 140ms, box-shadow 140ms;
+}
+.add-session-grid:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 13px 0 var(--ink);
+}
+
+.add-session-grid p:first-of-type {
+    grid-area: eyebrow;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    margin: 0;
+    opacity: 0.8;
+}
+.add-session-grid h2 {
+    grid-area: title;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 56px;
+    line-height: 0.95;
+    letter-spacing: -0.035em;
+    margin: 4px 0 0;
+    color: var(--accent-ink);
+}
+.add-session-grid p:nth-of-type(2) {
+    grid-area: meta;
+    font-size: 14px;
+    font-weight: 600;
+    opacity: 0.8;
+    margin: 6px 0 0;
+}
+
+#add-session-btn {
+    grid-area: plus;
+    width: 72px;
+    height: 72px;
+    border-radius: 30%;
+    background: var(--accent-ink);
+    color: var(--accent);
+    border: none;
+    font-family: var(--font-display);
+    font-size: 38px;
+    font-weight: 700;
+    line-height: 1;
+    padding: 0;
+    display: grid;
+    place-items: center;
+    box-shadow: none;
+    transition: transform 120ms;
+}
+#add-session-btn:hover {
+    border-color: transparent;
+    transform: scale(1.06);
+}
+
+/* Create session card (shows when add button clicked) */
+#create-session-div {
+    background: var(--surface);
+    border: 1.5px solid var(--line-soft);
+    border-radius: var(--r-xl);
+    padding: 32px 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+#create-session-div > h2 {
+    font-size: 32px;
+    margin: 0 0 8px;
+}
+#create-session-div > button {
+    align-self: flex-start;
+    margin-top: 4px;
+}
+
+/* ============================================================
+   SESSION FORM
+   ============================================================ */
+.create-session-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.player-info-section,
+.game-info-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.player-info-section > div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--surface-2);
+    border: 1.5px solid var(--line-soft);
+    border-radius: var(--r-md);
+    padding: 10px 14px;
+}
+.player-info {
+    font-size: 15px;
+    font-weight: 600;
+    margin: 0;
+}
+.player-info i {
+    font-family: var(--font-display);
+    font-style: normal;
+    font-weight: 700;
+    color: var(--accent-ink);
+    background: var(--accent);
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-size: 13px;
+    margin-left: 6px;
+}
+
+.remove-player-btn {
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    border-radius: 50%;
+    background: var(--line-soft);
+    border: none;
+    color: var(--ink);
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1;
+    display: grid;
+    place-items: center;
+}
+.remove-player-btn:hover {
+    background: var(--q-error);
+    color: white;
+}
+
+.game-info-section label {
+    margin-top: 4px;
+}
+
+.create-session-form > button[type="submit"] {
+    align-self: flex-start;
+    background: var(--accent);
+    color: var(--accent-ink);
+    border: 2px solid var(--ink);
+    border-radius: var(--r-md);
+    padding: 14px 28px;
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    box-shadow: 0 5px 0 var(--ink);
+    margin-top: 8px;
+}
+.create-session-form > button[type="submit"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 7px 0 var(--ink);
+    border-color: var(--ink);
+}
+.create-session-form > button[type="submit"]:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 var(--ink);
+}
+
+/* Submit + Cancel side-by-side row. Both buttons flex:1 so they
+   take equal width regardless of label length. */
+.form-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 8px;
+}
+.form-actions > button {
+    flex: 1 1 0;
+    padding: 14px 24px;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    border-radius: var(--r-md);
+    border: 2px solid var(--ink);
+    transition: transform 100ms, box-shadow 100ms, background 120ms, color 120ms;
+}
+.form-actions > button[type="submit"] {
+    background: var(--accent);
+    color: var(--accent-ink);
+    box-shadow: 0 5px 0 var(--ink);
+}
+.form-actions > button[type="submit"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 7px 0 var(--ink);
+}
+.form-actions > button[type="submit"]:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 var(--ink);
+}
+.form-actions > button.btn-cancel,
+.form-actions > button[type="button"] {
+    background: transparent;
+    color: var(--ink);
+    border-color: var(--line-soft);
+    box-shadow: none;
+}
+.form-actions > button.btn-cancel:hover,
+.form-actions > button[type="button"]:hover {
+    border-color: var(--ink);
+    background: var(--line-soft);
+}
+
+/* ============================================================
+   ADD PLAYER (inline)
+   ============================================================ */
+.add-player-div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: flex-end;
+    background: var(--surface);
+    border: 1.5px dashed var(--line-soft);
+    border-radius: var(--r-md);
+    padding: 12px;
+    margin-top: 4px;
+}
+.add-player-div label {
+    flex: 1 1 120px;
+    min-width: 120px;
+}
+.add-player-div input {
+    flex: 1 1 120px;
+    min-width: 100px;
+    padding: 10px 12px;
+    font-size: 14px;
+}
+.add-player-div select {
+    flex: 1 1 200px;
+    min-width: 180px;
+    padding: 10px 36px 10px 12px;
+    font-size: 14px;
+}
+#add-player-btn {
+    background: var(--ink);
+    color: var(--paper);
+    border: 1.5px solid var(--ink);
+    font-weight: 600;
+    padding: 10px 16px;
+    font-size: 14px;
+    flex: 0 0 auto;
+}
+#add-player-btn:hover {
+    background: var(--ink-2);
+    border-color: var(--ink-2);
+}
+.add-player-div > button:not(#add-player-btn) {
+    padding: 10px 16px;
+    font-size: 14px;
+}
+
+/* ============================================================
+   SESSION — top bar
+   ============================================================ */
 .session-top-bar {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    margin-bottom: 8px;
+    justify-content: space-between;
+    gap: 16px;
+    margin: 8px 0 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--line-soft);
+}
+
+#session-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    min-width: 0;
+}
+#session-info h2 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 26px;
+    letter-spacing: -0.025em;
+    margin: 0;
+    white-space: nowrap;
+}
+
+#digs-logged {
+    margin: 0 10px;
+    display: inline-flex;
+    align-items: baseline;
+    gap: 6px;
+    padding: 6px 14px;
+    background: var(--surface);
+    border: 1.5px solid var(--line-soft);
+    border-radius: 999px;
+}
+#digs-logged p {
+    margin: 0;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--mute);
+}
+#digs-logged-num {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 18px !important;
+    color: var(--ink) !important;
+    letter-spacing: -0.02em !important;
+    text-transform: none !important;
+    padding-right: 0 7px;
 }
 
 .session-buttons-div {
     display: flex;
     align-items: center;
     gap: 8px;
-}
-
-/* Two-column layout: attack on left, rest on right */
-.session-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto auto auto;
-    gap: 16px;
-}
-
-.attack-grid-div {
-    grid-column: 1;
-    grid-row: 1 / 4;
-}
-
-.player-select-div {
-    grid-column: 2;
-    grid-row: 1;
-}
-
-.contact-grid-div {
-    grid-column: 2;
-    grid-row: 2;
-}
-
-.dig-quality-div {
-    grid-column: 2;
-    grid-row: 3;
-}
-
-/* Attack location grids */
-.back-row-grid,
-.front-row-grid {
-    display: grid;
-    gap: 8px;
-    margin-bottom: 8px;
-}
-
-.back-row-grid {
-    grid-template-columns: repeat(4, 1fr);
-}
-
-.front-row-grid {
-    grid-template-columns: repeat(4, 1fr);
-}
-
-/* Contact location grid */
-.contact-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, auto);
-    gap: 8px;
-}
-
-.contact-grid button:nth-child(1) { grid-column: 2; grid-row: 1; } /* In Front */
-.contact-grid button:nth-child(2) { grid-column: 1; grid-row: 2; } /* Left */
-.contact-grid button:nth-child(3) { grid-column: 2; grid-row: 2; } /* Direct */
-.contact-grid button:nth-child(4) { grid-column: 3; grid-row: 2; } /* Right */
-.contact-grid button:nth-child(5) { grid-column: 2; grid-row: 3; } /* Above */
-
-/* Dig quality grid */
-.dig-quality-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 8px;
-}
-
-/* Player select buttons */
-.player-select {
-    display: flex;
     flex-wrap: wrap;
-    gap: 8px;
 }
-
-/* Selected button state */
-button.selected {
-    outline: 2px solid;
-}
-
-/* Distribution bar */
-.distribution-card {
-    width: 100%;
-}
-
-.dist-bar {
-    display: flex;
-    height: 36px;
-    border-radius: 18px;
-    overflow: hidden;
-    width: 100%;
-    margin: 12px 0;
-}
-
-.dist-segment {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 0.8rem;
-    font-weight: 600;
-    transition: width 0.3s ease;
-}
-
-.dist-labels {
-    display: flex;
-    justify-content: space-around;
-    margin-top: 8px;
-}
-
-.dist-label-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2px;
-}
-
-.dist-score {
-    font-size: 1.4rem;
-    font-weight: 700;
-}
-
-.dist-level {
-    font-size: 0.65rem;
-    color: #888;
-    margin: 0;
-    letter-spacing: 0.05em;
-}
-
-.dist-count {
-    font-size: 1rem;
-    font-weight: 600;
-    margin: 0;
-}
-
-/* Contact stats grid (court layout) */
-.contact-stats-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, auto);
-    gap: 8px;
-    margin-top: 12px;
-}
-
-/* Attack stats grid (2 rows of 4) */
-.attack-stats-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(2, auto);
-    gap: 8px;
-    margin-top: 12px;
-}
-
-/* Attack zone card */
-.attack-zone-card {
-    border: 1px solid #e0e0e0;
-    border-radius: 12px;
-    padding: 14px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.attack-zone-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.attack-zone-icon {
-    background: #1a1a1a;
-    color: white;
-    border-radius: 8px;
-    width: 36px;
-    height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.75rem;
-    font-weight: 700;
-    flex-shrink: 0;
-}
-
-.attack-zone-meta {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-}
-
-.attack-zone-name {
-    font-size: 0.9rem;
+.session-buttons-div button {
+    padding: 10px 16px;
+    font-size: 13px;
     font-weight: 600;
 }
-
-.attack-zone-row-label {
-    font-size: 0.65rem;
-    text-transform: uppercase;
-    color: #888;
-    letter-spacing: 0.05em;
+#reset-action-btn,
+#undo-action-btn {
+    background: var(--surface);
+}
+#end-session-btn {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+}
+#end-session-btn:hover {
+    background: var(--q-error);
+    border-color: var(--q-error);
 }
 
-.attack-zone-pct-block {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-}
-
-.attack-zone-pct {
-    font-size: 1.4rem;
-    font-weight: 700;
-}
-
-.attack-zone-n {
-    font-size: 0.7rem;
-    color: #888;
-}
-
-.attack-zone-bar-track {
-    height: 4px;
-    background: #e0e0e0;
-    border-radius: 2px;
-    overflow: hidden;
-}
-
-.attack-zone-bar-fill {
-    height: 100%;
-    background: #8bc34a;
-    border-radius: 2px;
-    transition: width 0.3s ease;
-}
-
-/* Contact sub-grid inside attack zone card */
-.attack-contact-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, auto);
-    gap: 4px;
-}
-
-.attack-contact-cell {
-    border-radius: 6px;
-    padding: 5px 4px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background: #f5f5f5;
-}
-
-.attack-contact-cell.has-data {
-    background: #f0f7e0;
-}
-
-.attack-contact-label {
-    font-size: 0.55rem;
-    font-weight: 700;
-    color: #888;
-    letter-spacing: 0.04em;
-}
-
-.attack-contact-pct {
-    font-size: 0.85rem;
-    font-weight: 700;
-}
-
-.attack-contact-n {
-    font-size: 0.6rem;
-    color: #888;
-}
-
-/* Zone card (grid view) */
-.zone-card {
-    border: 1px solid #e0e0e0;
-    border-radius: 10px;
-    padding: 12px;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.zone-card-label {
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: #888;
-    margin: 0;
-}
-
-.zone-card-pct {
-    font-size: 1.6rem;
-    font-weight: 700;
-    margin: 0;
-}
-
-.zone-card-track {
-    height: 4px;
-    background: #e0e0e0;
-    border-radius: 2px;
-    overflow: hidden;
-}
-
-.zone-card-fill {
-    height: 100%;
-    background: #4CAF50;
-    border-radius: 2px;
-    transition: width 0.3s ease;
-}
-
-.zone-card-n {
-    font-size: 0.75rem;
-    color: #888;
-    margin: 0;
-}
-
-/* Zone bar (bar view) */
-.zone-bar-list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 12px;
-}
-
-.zone-bar {
-    display: grid;
-    grid-template-columns: 80px 1fr 44px 40px;
-    align-items: center;
-    gap: 8px;
-}
-
-.zone-bar-label {
-    font-size: 0.8rem;
-    font-weight: 600;
-}
-
-.zone-bar-track {
-    height: 8px;
-    background: #e0e0e0;
-    border-radius: 4px;
-    overflow: hidden;
-}
-
-.zone-bar-fill {
-    height: 100%;
-    background: #4CAF50;
-    border-radius: 4px;
-    transition: width 0.3s ease;
-}
-
-.zone-bar-pct {
-    font-size: 0.85rem;
-    font-weight: 700;
-    text-align: right;
-}
-
-.zone-bar-n {
-    font-size: 0.75rem;
-    color: #888;
-}
-
-/* Edit players panel */
+/* Edit-players panel */
 .edit-players-panel {
-    border: 1px solid #e0e0e0;
-    border-radius: 10px;
-    padding: 12px;
+    background: var(--surface);
+    border: 1.5px solid var(--line-soft);
+    border-radius: var(--r-lg);
+    padding: 16px 18px;
     margin-bottom: 12px;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 10px;
 }
-
 .edit-player-row {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--line-softer);
+}
+.edit-player-row:last-of-type {
+    border-bottom: 0;
+}
+.edit-player-row > span {
+    font-weight: 600;
+    font-size: 15px;
+}
+.edit-player-row > button {
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    border-radius: 50%;
+    background: var(--line-soft);
+    border: none;
+    color: var(--ink);
+    font-size: 18px;
+    line-height: 1;
+}
+.edit-player-row > button:hover {
+    background: var(--q-error);
+    color: white;
 }
 
-/* Form layout */
+/* ============================================================
+   SESSION — two-column grid (already structural)
+   Re-stated here so the file stands alone.
+   ============================================================ */
 .new-action-form {
     display: flex;
     flex-direction: column;
 }
 
-.new-action-form button[type="submit"] {
-    margin-top: 16px;
+.session-grid {
+    display: grid;
+    grid-template-columns: 1.25fr 1fr;
+    grid-template-rows: auto auto auto;
+    gap: 16px;
+}
+.attack-grid-div { grid-column: 1; grid-row: 1 / 4; }
+.player-select-div { grid-column: 2; grid-row: 1; }
+.contact-grid-div { grid-column: 2; grid-row: 2; }
+.dig-quality-div { grid-column: 2; grid-row: 3; }
+
+/* Each section is its own card */
+.attack-grid-div,
+.player-select-div,
+.contact-grid-div,
+.dig-quality-div {
+    background: var(--surface);
+    border: 1.5px solid var(--line-soft);
+    border-radius: var(--r-lg);
+    padding: 18px 18px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.attack-grid-div h3,
+.player-select-div h3,
+.contact-grid-div h3,
+.dig-quality-div h3 {
+    margin: 0;
+}
+
+/* ============================================================
+   ATTACK GRID — styled as a volleyball court
+   ============================================================ */
+.attack-grid {
+    background: var(--court);
+    border: 3px solid var(--court-line);
+    border-radius: 10px;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    flex: 1;
+    min-height: 360px;
+    position: relative;
+    background-image:
+        radial-gradient(circle at 30% 25%, rgba(255,255,255,0.06) 0, transparent 60%),
+        radial-gradient(circle at 75% 80%, rgba(0,0,0,0.10) 0, transparent 60%);
+}
+
+.back-row-grid,
+.front-row-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    flex: 1;
+    margin: 0;
+}
+
+/* 3 m line — unlabeled white bar centred in the gap between rows.
+   Back row is larger than front row to match real court proportions
+   (6 m back, 3 m front). */
+.back-row-grid {
+    flex: 2;
+}
+.front-row-grid {
+    flex: 1;
+}
+.back-row-grid + .front-row-grid {
+    position: relative;
+}
+.back-row-grid + .front-row-grid::after {
+    content: '';
+    position: absolute;
+    top: -11px; left: 0; right: 0;
+    height: 2px;
+    background: var(--court-line);
+    border-radius: 2px;
+    opacity: 0.85;
+}
+
+.attack-grid button {
+    background: rgba(255, 255, 255, 0.10);
+    border: 2px solid rgba(255, 255, 255, 0.45);
+    border-radius: 8px;
+    color: var(--court-line);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 24px;
+    letter-spacing: -0.02em;
+    padding: 0;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    transition: background 120ms, border-color 120ms, transform 80ms, color 120ms;
+}
+.attack-grid button:hover {
+    background: rgba(255, 255, 255, 0.22);
+    border-color: rgba(255, 255, 255, 0.9);
+}
+/* Two-word labels (Back Pipe / Front Pipe) — break each word onto its own line */
+.attack-grid button[value="Back Pipe"],
+.attack-grid button[value="Front Pipe"] {
+    word-spacing: 100vw;
+    line-height: 1;
+}
+.attack-grid button.selected {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--accent-ink);
+    box-shadow: 0 0 0 4px var(--accent-glow);
+}
+
+/* ============================================================
+   CONTACT GRID — body cross layout
+   ============================================================ */
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, minmax(64px, 1fr));
+    gap: 8px;
+    min-height: 220px;
+}
+.contact-grid button:nth-child(1) { grid-column: 2; grid-row: 1; }
+.contact-grid button:nth-child(2) { grid-column: 1; grid-row: 2; }
+.contact-grid button:nth-child(3) {
+    grid-column: 2; grid-row: 2;
+    border-style: dashed;
+}
+.contact-grid button:nth-child(3).selected { border-style: solid; }
+.contact-grid button:nth-child(4) { grid-column: 3; grid-row: 2; }
+.contact-grid button:nth-child(5) { grid-column: 2; grid-row: 3; }
+
+.contact-grid button {
+    background: var(--surface-2);
+    border: 1.5px solid var(--line-soft);
+    border-radius: var(--r-md);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    padding: 14px 8px;
+    display: grid;
+    place-items: center;
+    transition: border-color 120ms, background 120ms, color 120ms, transform 80ms;
+}
+
+/* ============================================================
+   DIG QUALITY
+   ============================================================ */
+.dig-quality-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+}
+.dig-quality-grid button {
+    padding: 18px 8px;
+    border-radius: var(--r-md);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    background: var(--surface-2);
+    border: 1.5px solid var(--line-soft);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+.dig-quality-grid button::before {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    color: var(--mute);
+}
+.dig-quality-grid button:nth-child(1)::before { content: '0'; }
+.dig-quality-grid button:nth-child(2)::before { content: '1'; }
+.dig-quality-grid button:nth-child(3)::before { content: '2'; }
+.dig-quality-grid button:nth-child(4)::before { content: '3'; }
+
+.dig-quality-grid button:nth-child(1).selected {
+    background: var(--q-error);
+    color: var(--paper);
+    border-color: var(--q-error);
+    box-shadow: 0 0 0 3px rgba(255, 79, 79, 0.30);
+}
+.dig-quality-grid button:nth-child(1).selected::before { color: var(--paper); }
+.dig-quality-grid button:nth-child(2).selected {
+    background: var(--q-poor);
+    color: var(--ink);
+    border-color: var(--q-poor);
+    box-shadow: 0 0 0 3px rgba(255, 140, 66, 0.30);
+}
+.dig-quality-grid button:nth-child(2).selected::before { color: var(--ink); }
+.dig-quality-grid button:nth-child(3).selected {
+    background: var(--q-good);
+    color: var(--ink);
+    border-color: var(--q-good);
+    box-shadow: 0 0 0 3px rgba(250, 204, 21, 0.30);
+}
+.dig-quality-grid button:nth-child(4).selected {
+    background: var(--q-perfect);
+    color: var(--ink);
+    border-color: var(--q-perfect);
+    box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.30);
+}
+
+/* ============================================================
+   PLAYER SELECT
+   ============================================================ */
+.player-select {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+.player-btn {
+    flex: 1 1 0;
+    min-width: 88px;
+    background: var(--surface-2);
+    border: 1.5px solid var(--line-soft);
+    border-radius: var(--r-md);
+    padding: 10px 8px 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    cursor: pointer;
+    transition: border-color 120ms, background 120ms, color 120ms, transform 80ms;
+}
+.player-btn-name {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: -0.01em;
+    text-align: center;
+    color: var(--ink);
+}
+.player-btn-num {
+    margin: 0;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--mute);
+    letter-spacing: 0.04em;
+}
+.player-btn-num i {
+    font-family: var(--font-display);
+    font-style: normal;
+    font-size: 12px;
+}
+.player-btn.selected .player-btn-name,
+.player-btn.selected .player-btn-num {
+    color: var(--accent-ink);
+}
+.player-btn.selected .player-btn-num { opacity: 0.7; }
+
+/* ============================================================
+   DONE button (form submit at end of session-grid)
+   ============================================================ */
+.new-action-form > button[type="submit"] {
+    margin-top: 20px;
     width: 100%;
+    background: var(--accent);
+    color: var(--accent-ink);
+    border: 2px solid var(--ink);
+    border-radius: var(--r-md);
+    padding: 20px 24px;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 22px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    box-shadow: 0 6px 0 var(--ink);
+    transition: transform 100ms, box-shadow 100ms;
+}
+.new-action-form > button[type="submit"]:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 0 var(--ink);
+    border-color: var(--ink);
+}
+.new-action-form > button[type="submit"]:active:not(:disabled) {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 var(--ink);
+}
+.new-action-form > button[type="submit"]:disabled {
+    background: var(--line-soft);
+    color: var(--mute);
+    border-color: var(--line-soft);
+    box-shadow: 0 6px 0 var(--line-soft);
+}
+
+/* ============================================================
+   STATS PAGE
+   ============================================================ */
+.filters-div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    margin: 16px 0 0;
+}
+.filters-div select {
+    width: auto;
+    min-width: 160px;
+    padding: 10px 36px 10px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    background-color: var(--surface);
+    border-radius: 999px;
+}
+
+.clear-filter-button {
+    background: transparent;
+    border: 1.5px solid var(--line-soft);
+    border-radius: 999px;
+    padding: 10px 16px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--mute);
+}
+.clear-filter-button:hover {
+    color: var(--ink);
+    border-color: var(--ink);
+}
+
+.toggle-view {
+    background: var(--ink);
+    color: var(--paper);
+    border: 1.5px solid var(--ink);
+    border-radius: 999px;
+    padding: 8px 16px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin: 0 0 16px;
+}
+
+/* Overall stats — 4 cards */
+.overall-stats-div {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin: 16px 0 0;
+}
+@media (max-width: 1100px) {
+    .overall-stats-div { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 560px) {
+    .overall-stats-div { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
+   STAT CARD
+   ============================================================ */
+.stat-card {
+    background: var(--surface);
+    border: 1.5px solid var(--line-soft);
+    border-radius: var(--r-lg);
+    padding: 20px 22px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-height: 150px;
+    position: relative;
+}
+.stat-card > p:first-child {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--mute);
+    margin: 0 0 8px;
+}
+.stat-card > h1 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 52px;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    margin: 0;
+}
+.stat-card > p:last-child {
+    margin: auto 0 0;
+    padding-top: 12px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--mute);
+}
+
+.avg-dig {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+}
+.avg-dig h1 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 52px;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    margin: 0;
+}
+.avg-dig p {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--mute);
+}
+
+/* Distribution card */
+.distribution-card {
+    grid-column: span 1;
+}
+.stat-card-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--mute);
+    margin: 0 0 8px !important;
+}
+
+.dist-bar {
+    display: flex;
+    height: 28px;
+    border-radius: 8px;
+    overflow: hidden;
+    width: 100%;
+    margin: 6px 0 12px !important;
+    background: var(--line-soft);
+}
+.dist-segment {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    transition: width 240ms ease-out;
+    white-space: nowrap;
+}
+
+.dist-labels {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    margin-top: 4px;
+    gap: 4px;
+}
+.dist-label-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1px;
+}
+.dist-score {
+    font-family: var(--font-display);
+    font-size: 18px !important;
+    font-weight: 700;
+    line-height: 1;
+}
+.dist-level {
+    font-size: 9px !important;
+    font-weight: 700;
+    color: var(--mute);
+    margin: 2px 0 0 !important;
+    letter-spacing: 0.12em !important;
+    text-transform: uppercase;
+}
+.dist-count {
+    font-family: var(--font-display);
+    font-size: 18px !important;
+    font-weight: 700 !important;
+    color: var(--ink) !important;
+    margin: 1px 0 0 !important;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+}
+
+/* ============================================================
+   ZONE CARD (grid view + bar view)
+   ============================================================ */
+.zone-card {
+    border: 1.5px solid var(--line-soft);
+    background: var(--surface);
+    border-radius: var(--r-md);
+    padding: 14px 14px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-height: 120px;
+}
+.zone-card-label {
+    font-size: 10px !important;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--mute) !important;
+    font-weight: 700 !important;
+    margin: 0 !important;
+}
+.zone-card-pct {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 32px !important;
+    letter-spacing: -0.03em !important;
+    margin: 0 !important;
+    line-height: 1;
+}
+.zone-card-track {
+    height: 6px;
+    background: var(--line-soft);
+    border-radius: 999px;
+    overflow: hidden;
+}
+.zone-card-fill {
+    height: 100%;
+    background: var(--bars-accent);
+    border-radius: 999px;
+    transition: width 240ms ease-out, background 120ms;
+}
+
+/* Quality-tier coloring for bar fills.
+   Applied to .zone-card-fill, .zone-bar-fill, .attack-zone-bar-fill.
+   Tier mapping (computed in JSX via the percentage):
+     p <= 25  → q-error    (red)
+     p <= 50  → q-poor     (yellowish orange)
+     p <= 75  → q-good     (green)
+     p >  75  → q-perfect  (purple) */
+.zone-card-fill.q-error,
+.zone-bar-fill.q-error,
+.attack-zone-bar-fill.q-error { background: var(--q-error); }
+.zone-card-fill.q-poor,
+.zone-bar-fill.q-poor,
+.attack-zone-bar-fill.q-poor { background: var(--q-poor); }
+.zone-card-fill.q-good,
+.zone-bar-fill.q-good,
+.attack-zone-bar-fill.q-good { background: var(--q-good); }
+.zone-card-fill.q-perfect,
+.zone-bar-fill.q-perfect,
+.attack-zone-bar-fill.q-perfect { background: var(--q-perfect); }
+.zone-card-n {
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    color: var(--mute) !important;
+    margin: auto 0 0 !important;
+    font-variant-numeric: tabular-nums;
+    padding-top: 4px;
+}
+
+/* Bar view list (Contact + inside attack zone cards) */
+.zone-bar-list {
+    display: flex;
+    flex-direction: column;
+    background: var(--surface);
+    border: 1.5px solid var(--line-soft);
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    margin-top: 12px;
+}
+.zone-bar {
+    display: grid;
+    grid-template-columns: 110px 1fr 56px 50px;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 18px;
+    border-top: 1px solid var(--line-softer);
+}
+.zone-bar:first-child { border-top: 0; }
+
+.zone-bar-label {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: -0.01em;
+}
+.zone-bar-track {
+    height: 8px;
+    background: var(--line-soft);
+    border-radius: 999px;
+    overflow: hidden;
+}
+.zone-bar-fill {
+    height: 100%;
+    background: var(--bars-accent);
+    border-radius: 999px;
+    transition: width 240ms ease-out;
+}
+.zone-bar-pct {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 18px;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
+}
+.zone-bar-n {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--mute);
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+}
+
+/* ============================================================
+   CONTACT STATS — court-layout grid
+   ============================================================ */
+.contact-stats-div h2,
+.attack-stats-div h2 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 26px;
+    letter-spacing: -0.025em;
+    margin: 0 0 4px;
+}
+.contact-stats-div > p,
+.attack-stats-div > p {
+    font-size: 13px;
+    color: var(--mute);
+    font-weight: 500;
+    margin: 0 0 12px;
+}
+
+.contact-stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr 1fr;
+    grid-template-rows: repeat(3, minmax(110px, 1fr));
+    gap: 10px;
+    margin-top: 12px;
+    background: var(--surface);
+    border: 1.5px solid var(--line-soft);
+    border-radius: var(--r-lg);
+    padding: 18px;
+}
+
+/* ============================================================
+   ATTACK STATS — 4×2 grid of zone cards
+   ============================================================ */
+.attack-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, auto);
+    gap: 12px;
+    margin-top: 12px;
+}
+@media (max-width: 1100px) {
+    .attack-stats-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 560px) {
+    .attack-stats-grid { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
+   ATTACK ZONE CARD
+   ============================================================ */
+.attack-zone-card {
+    background: var(--surface);
+    border: 1.5px solid var(--line-soft);
+    border-radius: var(--r-lg);
+    padding: 16px 16px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.attack-zone-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.attack-zone-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    background: var(--ink);
+    color: var(--paper);
+    display: grid;
+    place-items: center;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 15px;
+    flex-shrink: 0;
+}
+.attack-zone-meta {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 0;
+}
+.attack-zone-name {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: -0.005em;
+    color: var(--ink);
+}
+.attack-zone-row-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--mute);
+    font-weight: 700;
+}
+.attack-zone-pct-block {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+.attack-zone-pct {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 24px;
+    letter-spacing: -0.03em;
+    line-height: 1;
+}
+.attack-zone-n {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--mute);
+    margin-top: 2px;
+    font-variant-numeric: tabular-nums;
+}
+.attack-zone-bar-track {
+    height: 6px;
+    background: var(--line-soft);
+    border-radius: 999px;
+    overflow: hidden;
+}
+.attack-zone-bar-fill {
+    height: 100%;
+    background: var(--bars-accent);
+    border-radius: 999px;
+    transition: width 240ms ease-out;
+}
+
+/* Sub contact-stats inside attack zone card — collapse padding so it fits */
+.attack-zone-card .contact-stats-grid {
+    padding: 10px;
+    gap: 4px;
+    grid-template-rows: repeat(3, minmax(48px, 1fr));
+    min-height: 180px;
+}
+.attack-zone-card .zone-bar-list {
+    margin-top: 0;
+}
+.attack-zone-card .zone-bar {
+    grid-template-columns: 80px 1fr 44px 40px;
+    gap: 10px;
+    padding: 10px 14px;
+}
+.attack-zone-card .zone-bar-label {
+    font-size: 12px;
+}
+.attack-zone-card .zone-bar-pct {
+    font-size: 14px;
+}
+
+/* Inside an attack zone card, contact zone cells get smaller text */
+.attack-zone-card .zone-card {
+    padding: 8px 8px 6px;
+    min-height: 64px;
+    gap: 2px;
+}
+.attack-zone-card .zone-card-label {
+    font-size: 8px !important;
+    letter-spacing: 0.1em;
+}
+.attack-zone-card .zone-card-pct {
+    font-size: 16px !important;
+}
+.attack-zone-card .zone-card-n {
+    font-size: 9px !important;
+    padding-top: 2px;
+}
+
+/* ============================================================
+   RESPONSIVE — collapse session grid on narrow viewports
+   ============================================================ */
+@media (max-width: 900px) {
+    .session-grid {
+        grid-template-columns: 1fr;
+    }
+    .attack-grid-div { grid-column: 1; grid-row: auto; }
+    .player-select-div { grid-column: 1; grid-row: auto; }
+    .contact-grid-div { grid-column: 1; grid-row: auto; }
+    .dig-quality-div { grid-column: 1; grid-row: auto; }
+
+    body > #root > div > header {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+    body > #root > div > header > p {
+        padding-left: 0;
+        border-left: 0;
+    }
 }

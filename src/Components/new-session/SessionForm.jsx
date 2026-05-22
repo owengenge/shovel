@@ -4,7 +4,7 @@ import { useNavigate } from "react-router";
 import getSeason from "../../utils/getSeason";
 
 /** Form for creating a new session */
-export default function SessionForm({ sessions, setSessions, players, setPlayers, setSeshAddBtnClicked }) {
+export default function SessionForm({ sessions, setSessions, players, setPlayers, setSeshAddBtnClicked, onCancel }) {
     const [newSession, setNewSession] = useState({ opponent: "" });
     const navigate = useNavigate();
 
@@ -66,7 +66,10 @@ export default function SessionForm({ sessions, setSessions, players, setPlayers
                     </label>
                 </section>
 
-                <button type="submit">Submit</button>
+                <div className="form-actions">
+                    <button type="submit">Submit</button>
+                    <button type="button" className="btn-cancel" onClick={onCancel}>Cancel</button>
+                </div>
             </form>
         </div>
     );

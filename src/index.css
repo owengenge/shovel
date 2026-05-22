@@ -1,5 +1,277 @@
-body {
+/* ============================================================
+   Shovel — Global tokens, resets, and App-shell chrome
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+:root {
+    /* Surfaces */
+    --paper: #F4F1E8;
+    --surface: #FFFFFF;
+    --surface-2: #FAF8F1;
+
+    /* Ink */
+    --ink: #0E1422;
+    --ink-2: #1A2236;
+    --ink-3: #2A3450;
+    --mute: #6E7388;
+    --line-soft: rgba(14, 20, 34, 0.12);
+    --line-softer: rgba(14, 20, 34, 0.06);
+
+    /* Accent — drives CTAs, brand dot, selected states, player # pill */
+    --accent: #3FA9FF;
+    --accent-ink: #0A0D14;
+    --accent-glow: rgba(63, 169, 255, 0.45);
+
+    /* Data-bar accent — drives stat bars + zone fills.
+       Defaults to the primary accent; override to differentiate
+       interaction color from data-viz color. */
+    --bars-accent: var(--accent);
+    --bars-accent-glow: var(--accent-glow);
+
+    /* Court (used in attack grid) */
+    --court: #000000;
+    --court-line: #F4F1E8;
+
+    /* Quality colors */
+    --q-error: #FF4F4F;    /* Error   — red */
+    --q-poor: #FF8C42;     /* OK      — orange */
+    --q-good: #FACC15;     /* Good    — yellow */
+    --q-perfect: #4ADE80;  /* Perfect — green */
+
+    /* Radii */
+    --r-sm: 8px;
+    --r-md: 14px;
+    --r-lg: 20px;
+    --r-xl: 28px;
+
+    /* Type */
+    --font-display: 'Space Grotesk', system-ui, sans-serif;
+    --font-body: 'Space Grotesk', system-ui, sans-serif;
+}
+
+/* Optional night theme — set <html data-theme="night"> to use */
+[data-theme="night"] {
+    --paper: #0A0D14;
+    --surface: #121724;
+    --surface-2: #161C2C;
+    --ink: #F4F1E8;
+    --ink-2: #E8E5DC;
+    --ink-3: #C9C5BA;
+    --mute: #7A8094;
+    --line-soft: rgba(244, 241, 232, 0.14);
+    --line-softer: rgba(244, 241, 232, 0.06);
+    --court: #1F2638;
+    --court-line: rgba(244, 241, 232, 0.85);
+}
+
+* { box-sizing: border-box; }
+
+html, body {
     margin: 0;
-    font-family: system-ui, sans-serif;
-  }
-  
+    padding: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-weight: 500;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+#root {
+    min-height: 100vh;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 32px 48px;
+}
+
+/* ============================================================
+   Typography
+   ============================================================ */
+h1, h2, h3 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin: 0 0 12px;
+    color: var(--ink);
+}
+h1 { font-size: 56px; line-height: 1; letter-spacing: -0.035em; }
+h2 { font-size: 28px; line-height: 1.1; }
+h3 {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--mute);
+    margin: 0 0 10px;
+}
+p { margin: 0 0 8px; line-height: 1.5; }
+hr {
+    border: 0;
+    height: 1px;
+    background: var(--line-soft);
+    margin: 24px 0;
+}
+
+/* ============================================================
+   Form primitives
+   ============================================================ */
+input[type="text"],
+input[type="number"],
+select {
+    width: 100%;
+    background: var(--surface);
+    border: 1.5px solid var(--line-soft);
+    border-radius: var(--r-md);
+    padding: 12px 14px;
+    font-family: var(--font-body);
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--ink);
+    outline: none;
+    transition: border-color 120ms;
+}
+input[type="text"]:focus,
+input[type="number"]:focus,
+select:focus {
+    border-color: var(--ink);
+}
+select {
+    appearance: none;
+    -webkit-appearance: none;
+    padding-right: 36px;
+    background-image: linear-gradient(45deg, transparent 50%, var(--mute) 50%),
+                      linear-gradient(135deg, var(--mute) 50%, transparent 50%);
+    background-position: calc(100% - 18px) 50%, calc(100% - 13px) 50%;
+    background-size: 5px 5px, 5px 5px;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+label {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--mute);
+}
+
+/* ============================================================
+   Default button — every button gets this baseline,
+   specific components override
+   ============================================================ */
+button {
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--ink);
+    background: var(--surface);
+    border: 1.5px solid var(--line-soft);
+    border-radius: var(--r-md);
+    padding: 10px 16px;
+    cursor: pointer;
+    transition: border-color 120ms, background 120ms, color 120ms, transform 80ms;
+    line-height: 1.2;
+}
+button:hover:not(:disabled) { border-color: var(--ink); }
+button:active:not(:disabled) { transform: scale(0.98); }
+button:disabled {
+    color: var(--mute);
+    cursor: not-allowed;
+    background: var(--line-softer);
+    border-color: var(--line-soft);
+}
+
+/* Selected state shared by attack / contact / dig / player buttons */
+button.selected {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--accent-ink);
+    box-shadow: 0 0 0 3px var(--accent-glow);
+    outline: none;
+}
+
+/* ============================================================
+   App shell — <header>, <nav>, <footer> in App.jsx
+   ============================================================ */
+body > #root > div > header {
+    padding: 28px 0 20px;
+    border-bottom: 1px solid var(--line-soft);
+    margin-bottom: 28px;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 24px;
+}
+
+body > #root > div > header > h2 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 26px;
+    letter-spacing: -0.03em;
+    margin: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+body > #root > div > header > h2::after {
+    content: '';
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 4px var(--accent-glow);
+}
+
+body > #root > div > header > p {
+    margin: 0;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--mute);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding-left: 24px;
+    border-left: 1px solid var(--line-soft);
+}
+
+body > #root > div > header > nav {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+}
+body > #root > div > header > nav a {
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 999px;
+    transition: background 120ms, color 120ms;
+}
+body > #root > div > header > nav a:hover {
+    background: var(--line-soft);
+}
+body > #root > div > header > nav a.active,
+body > #root > div > header > nav a[aria-current="page"] {
+    background: var(--ink);
+    color: var(--paper);
+}
+
+body > #root > div > footer {
+    margin-top: 64px;
+    padding-top: 20px;
+    color: var(--mute);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+body > #root > div > footer hr {
+    margin: 0 0 16px;
+}
+body > #root > div > footer p {
+    margin: 2px 0;
+    text-align: right;
+}

@@ -32,8 +32,8 @@ export default function Home() {
                             players={players}
                             setPlayers={setPlayers}
                             setSeshAddBtnClicked={setAddBtnClicked}
+                            onCancel={() => setAddBtnClicked(false)}
                         />
-                        <button onClick={() => setAddBtnClicked(false)}>Cancel</button>
                     </div>
                 )}
             </div>

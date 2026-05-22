@@ -45,10 +45,10 @@ export default function StatCard( {type, filteredActions} ) {
         }
         case "distribution": {
             const levels = [
-                { key: "error", label: "Error", score: 0, color: "#E53935" },
-                { key: "poor", label: "Ok", score: 1, color: "#888" },
-                { key: "good", label: "Good", score: 2, color: "#F5A623" },
-                { key: "perfect", label: "Perfect", score: 3, color: "#4CAF50" },
+                { key: "error",   label: "Error",   color: "var(--q-error)" },
+                { key: "poor",    label: "Ok",      color: "var(--q-poor)" },
+                { key: "good",    label: "Good",    color: "var(--q-good)" },
+                { key: "perfect", label: "Perfect", color: "var(--q-perfect)" },
             ];
             const counts = { error: 0, poor: 0, good: 0, perfect: 0 };
             filteredActions.forEach((a) => counts[a.digQuality]++);
@@ -69,10 +69,9 @@ export default function StatCard( {type, filteredActions} ) {
                         })}
                     </div>
                     <div className="dist-labels">
-                        {levels.map(({ key, label, score, color }) => (
+                        {levels.map(({ key, label, color }) => (
                             <div key={key} className="dist-label-item">
-                                <span className="dist-score" style={{ color }}>{score}</span>
-                                <p className="dist-level">{label.toUpperCase()}</p>
+                                <p className="dist-level" style={{ color }}>{label.toUpperCase()}</p>
                                 <p className="dist-count">{counts[key]}</p>
                             </div>
                         ))}

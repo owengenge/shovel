@@ -5,6 +5,7 @@ import App from "./App";
 import Home from "./components/Home";
 import Session from "./components/track-session/Session";
 import Stats from "./components/stats/Stats";
+import "./index.css";
 
 const router = createBrowserRouter([
   {

@@ -15,12 +15,12 @@ export default function AddPlayer( {players, setPlayers, sessions} ) {
         ).values()
     ];
 
-    function handleChange (e) {
-        const {name, value} = e.target;
-        setNewPlayer((prev) => ({
-            ...prev, 
-            [name]: value
-        }))
+    function handleChange(e) {
+        const { name, value } = e.target;
+        let sanitized = value;
+        if (name === "name")   sanitized = value.replace(/[^a-zA-Z\s'-]/g, "");
+        if (name === "number") sanitized = value.replace(/[^0-9]/g, "");
+        setNewPlayer((prev) => ({ ...prev, [name]: sanitized }));
     }
     
     function handleAddPlayer(existingPlayer) {
@@ -74,24 +74,22 @@ export default function AddPlayer( {players, setPlayers, sessions} ) {
                 </div>
             ) : (
                 <div className="add-player-div">
-                    <label>
-                        Name
-                        <input
-                            type="text"
-                            name="name"
-                            value={newPlayer.name}
-                            onChange={handleChange}
-                        />
-                    </label>
-                    <label>
-                        Number
-                        <input
-                            type="text"
-                            name="number"
-                            value={newPlayer.number}
-                            onChange={handleChange}
-                        />
-                    </label>
+                    <input
+                        type="text"
+                        name="name"
+                        placeholder="Name"
+                        aria-label="Player name"
+                        value={newPlayer.name}
+                        onChange={handleChange}
+                    />
+                    <input
+                        type="text"
+                        name="number"
+                        placeholder="Number"
+                        aria-label="Player number"
+                        value={newPlayer.number}
+                        onChange={handleChange}
+                    />
                     <button type="button" onClick={() => handleAddPlayer()}>Done</button>
                     {players.length > 0 && (
                         <button type="button" onClick={() => setAddBtnClicked(false)}>Cancel</button>

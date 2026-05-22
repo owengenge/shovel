@@ -1,6 +1,7 @@
 import React from "react";
 import getAttackStats from "../../utils/getAttackStats";
 import ContactStats from "./ContactStats";
+import qualityClass from "../../utils/qualityClass";
 
 /** Card for a single attack zone. Shows overall positive % and a contact location breakdown filtered to that zone.
  *  Grid view: contact bars. Bar view: contact court grid. */
@@ -23,7 +24,7 @@ export default function AttackZoneCard({ location, abbr, name, rowLabel, actions
                 </div>
             </div>
             <div className="attack-zone-bar-track">
-                <div className="attack-zone-bar-fill" style={{ width: p !== null ? `${p}%` : "0%" }} />
+                <div className={`attack-zone-bar-fill ${qualityClass(p)}`} style={{ width: p !== null ? `${p}%` : "0%" }} />
             </div>
             <ContactStats barView={barView} filteredActions={zoneActions} showHeader={false} />
         </div>

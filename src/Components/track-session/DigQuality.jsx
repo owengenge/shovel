@@ -8,23 +8,23 @@ export default function DigQuality({ handleClick, digClass }) {
             <div className="dig-quality-grid">
                 <button
                     type="button"
-                    name="digQuality" value="0"
-                    className={digClass("0")}
+                    name="digQuality" value="error"
+                    className={digClass("error")}
                     onClick={handleClick}>Error</button>
                 <button
                     type="button"
-                    name="digQuality" value="1"
-                    className={digClass("1")}
-                    onClick={handleClick}>Poor</button>
+                    name="digQuality" value="poor"
+                    className={digClass("poor")}
+                    onClick={handleClick}>Ok</button>
                 <button
                     type="button"
-                    name="digQuality" value="2"
-                    className={digClass("2")}
+                    name="digQuality" value="good"
+                    className={digClass("good")}
                     onClick={handleClick}>Good</button>
                 <button
                     type="button"
-                    name="digQuality" value="3"
-                    className={digClass("3")}
+                    name="digQuality" value="perfect"
+                    className={digClass("perfect")}
                     onClick={handleClick}>Perfect</button>
             </div>
         </div>
