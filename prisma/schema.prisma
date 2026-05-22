@@ -1,0 +1,29 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Session {
+  id       String @id @default(uuid())
+  opponent String?
+  date     DateTime
+  actions  Action[]
+}
+
+model Action {
+  id              String @id @default(uuid())
+  attackLocation  String
+  contactLocation String
+  digQuality      String
+  sessionId       String
+  session         Session @relation(fields: [sessionId], references: [id])
+}
