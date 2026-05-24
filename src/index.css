@@ -195,6 +195,16 @@ button.selected {
 /* ============================================================
    App shell — <header>, <nav>, <footer> in App.jsx
    ============================================================ */
+body > #root > div {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+body > #root > div > main {
+    flex: 1;
+}
+
 body > #root > div > header {
     padding: 28px 0 20px;
     border-bottom: 1px solid var(--line-soft);
@@ -261,6 +271,7 @@ body > #root > div > header > nav a[aria-current="page"] {
 
 body > #root > div > footer {
     margin-top: 64px;
+    margin-bottom: 32px;
     padding-top: 20px;
     color: var(--mute);
     font-size: 12px;

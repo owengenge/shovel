@@ -22,7 +22,9 @@ function App() {
               </nav>
           )}
       </header>
-      <Outlet context={{ sessions, setSessions, actions, setActions }} />
+      <main>
+        <Outlet context={{ sessions, setSessions, actions, setActions }} />
+      </main>
       <footer>
         <hr></hr>
         <p>v0.1 · Indoor 6s</p>

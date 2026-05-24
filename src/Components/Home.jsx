@@ -11,13 +11,12 @@ export default function Home() {
     return (
         <div>
             <h1>Know your defense.</h1>
-            <p>In depth defensive stat tracking. Tap to log attack origin, contact location, and dig quality - court-side, in real time, with no setup.</p>
+            <p>In depth defensive stat tracking. Tap to log attack origin, contact location, and dig quality - court-side, in real time.</p>
             <div className="new-session-div">
                 {!(addBtnClicked) ? (
                     <div className="add-session-grid">
-                        <p>Start Tracking</p>
-                        <h2>New Session</h2>
-                        <p>One to multiple players</p>
+                        <p>New Session</p>
+                        <h2>Start Tracking</h2>
                         <button
                             id="add-session-btn"
                             onClick={() => setAddBtnClicked(true)}>+</button>
