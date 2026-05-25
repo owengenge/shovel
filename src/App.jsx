@@ -7,23 +7,22 @@ import { sessions as dummySessions, actions as dummyActions } from "./dummyData"
 function App() {
   const [sessions, setSessions] = useState(dummySessions);
   const [actions, setActions] = useState(dummyActions);
-  const location = useLocation();
-  const inSession = location.pathname.startsWith("/session");
+  const [sessionActive, setSessionActive] = useState(false);
+  const [activeSessionId, setActiveSessionId] = useState(null);
 
   return (
     <div>
       <header>
           <h2>SHOVEL</h2>
           <p>Uncover the truth behind every dig.</p>
-          {!inSession && (
-              <nav>
-                  <Link to="/">Home</Link>
-                  <Link to="/stats">Stats</Link>
-              </nav>
-          )}
+          <nav>
+              <Link to="/">Home</Link>
+              {sessionActive && <Link to={`/session/${activeSessionId}`}>Session</Link>}
+              <Link to="/stats">Stats</Link>
+          </nav>
       </header>
       <main>
-        <Outlet context={{ sessions, setSessions, actions, setActions }} />
+        <Outlet context={{ sessions, setSessions, actions, setActions, sessionActive, setSessionActive, activeSessionId, setActiveSessionId }} />
       </main>
       <footer>
         <hr></hr>

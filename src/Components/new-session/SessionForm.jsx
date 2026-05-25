@@ -4,7 +4,7 @@ import { useNavigate } from "react-router";
 import getSeason from "../../utils/getSeason";
 
 /** Form for creating a new session */
-export default function SessionForm({ sessions, setSessions, players, setPlayers, setSeshAddBtnClicked, onCancel }) {
+export default function SessionForm({ sessions, setSessions, players, setPlayers, setSeshAddBtnClicked, onCancel, setSessionActive, setActiveSessionId }) {
     const [newSession, setNewSession] = useState({ opponent: "" });
     const navigate = useNavigate();
 
@@ -29,6 +29,8 @@ export default function SessionForm({ sessions, setSessions, players, setPlayers
         setNewSession({ opponent: "" });
         setPlayers([]);
         setSeshAddBtnClicked(false);
+        setSessionActive(true);
+        setActiveSessionId(newEntry.sessionId);
         navigate(`/session/${newEntry.sessionId}`);
     }
 

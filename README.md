@@ -1,16 +1,71 @@
-# React + Vite
+# Shovel
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> Uncover the truth behind every dig.
 
-Currently, two official plugins are available:
+A full-stack web app for volleyball players to track defensive performance in real time. Log attack origin, contact location, and dig quality court-side, then review detailed stats breakdowns after each session.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Session Management** — Create sessions with a custom roster, track multiple players, and end sessions when done
+- **Live Action Tracking** — Log each dig by selecting attack zone, contact location, and dig quality on an interactive court layout
+- **Player Management** — Add new or existing players to a session, edit the roster mid-session
+- **Stats Dashboard** — View overall dig stats and per-attack-zone breakdowns with filterable contact location data
+- **Season Tracking** — Sessions are automatically grouped by volleyball season
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Tech Stack
+
+| Layer | Tech |
+|---|---|
+| Frontend | React 19, React Router 7 |
+| Backend | Node.js, Express 5 |
+| Database | SQLite via Prisma ORM |
+| Build Tool | Vite |
+
+---
+
+## Getting Started
+
+### Prerequisites
+- Node.js v18+
+
+### Install dependencies
+```bash
+npm install
+```
+
+### Run the development server
+```bash
+npm run dev
+```
+
+### Run the backend server
+```bash
+npm run server
+```
+
+Open [http://localhost:5173](http://localhost:5173) in your browser.
+
+---
+
+## Project Structure
+
+```
+src/
+├── components/
+│   ├── new-session/     # Session creation form and player management
+│   ├── track-session/   # Live dig tracking (attack grid, contact grid, dig quality)
+│   └── stats/           # Stats dashboard and zone breakdowns
+├── utils/               # Helper functions (e.g. season calculation)
+├── App.jsx              # Root layout and global state
+└── server.js            # Express API
+```
+
+---
+
+## Author
+
+Built by Owen Genge
