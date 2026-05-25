@@ -15,7 +15,7 @@ export default function StatCard( {type, filteredActions} ) {
                 </div>
             );
         case "posTouch":
-            const posTouchPercent = ((posTouches / filteredActions.length) * 100).toFixed(1);
+            const posTouchPercent = filteredActions.length ? ((posTouches / filteredActions.length) * 100).toFixed(1) : 0;
             return (
                 <div className="stat-card">
                     <p>Positive Touch %</p>
