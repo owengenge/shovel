@@ -25,6 +25,11 @@ export default function SessionForm({ sessions, setSessions, players, setPlayers
         }
         const date = new Date();
         const newEntry = { ...newSession, players, sessionId: crypto.randomUUID(), date, season: getSeason(date) };
+        fetch("http://localhost:3000/sessions", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(newEntry)
+        });
         setSessions([...sessions, newEntry]);
         setNewSession({ opponent: "" });
         setPlayers([]);

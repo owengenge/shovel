@@ -11,7 +11,6 @@ import AddPlayer from "../new-session/AddPlayer";
 export default function Session() {
     const { sessionId } = useParams();
     const { sessions, setSessions, actions, setActions } = useOutletContext();
-    const [numClicked, setNumClicked] = useState(0);
     const [newAction, setNewAction] = useState({
         player: {},
         attackLocation: "",
@@ -26,9 +25,12 @@ export default function Session() {
     function handleSubmit(e) {
         e.preventDefault();
         const updated = [...actions, { ...newAction, sessionId, actionId: crypto.randomUUID() }];
+        fetch("http://localhost:3000/actions", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(updated)
+        })
         setActions(updated);
-        console.log("actions:", updated);
-        setNumClicked(0);
         setNewAction({ player: {}, attackLocation: "", contactLocation: "", digQuality: "" });
     }
 
@@ -44,6 +46,14 @@ export default function Session() {
     }
 
     function handleUndo() {
+        const lastAction = actions[actions.length - 1];
+        if (!lastAction) return;
+        
+        fetch(`http://localhost:3000/actions:${lastAction.id}`, {
+            method: "DELETE",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(updated)
+        })
         setActions(actions.slice(0, -1));
     }
 

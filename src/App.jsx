@@ -1,14 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, Outlet, useLocation } from "react-router";
 import "./App.css";
 import { sessions as dummySessions, actions as dummyActions } from "./dummyData";
 
 /** Root layout. Holds global session state and renders the nav and current route. */
 function App() {
-  const [sessions, setSessions] = useState(dummySessions);
-  const [actions, setActions] = useState(dummyActions);
+  const [sessions, setSessions] = useState([]);
+  const [actions, setActions] = useState([]);
   const [sessionActive, setSessionActive] = useState(false);
   const [activeSessionId, setActiveSessionId] = useState(null);
+
+  useEffect(() => {
+    fetch("http://localhost:3000/sessions")
+      .then(res => res.json())
+      .then(data => setSessions(data))
+  }, []);
+
+  useEffect (() => {
+    fetch("http://localhost:3000/actions")
+      .then(res => res.json())
+      .then(data => setActions(data))
+  }, []);
 
   return (
     <div>
