@@ -17,43 +17,38 @@ export default function Session() {
         contactLocation: "",
         digQuality: ""
     });
-
-    const [ended, setEnded] = useState(false);
+const [ended, setEnded] = useState(false);
     const [editingPlayers, setEditingPlayers] = useState(false);
     const navigate = useNavigate();
 
     function handleSubmit(e) {
         e.preventDefault();
-        const updated = [...actions, { ...newAction, sessionId, actionId: crypto.randomUUID() }];
+        const newEntry = { ...newAction, sessionId, actionId: crypto.randomUUID() };
         fetch("http://localhost:3000/actions", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(updated)
-        })
-        setActions(updated);
+            body: JSON.stringify(newEntry)
+        });
+        setActions((prev) => [...prev, newEntry]);
         setNewAction({ player: {}, attackLocation: "", contactLocation: "", digQuality: "" });
     }
 
     function handleClick(e) {
         const { name, value } = e.target;
-        setNumClicked((prev) => prev + 1);
+
         setNewAction((prev) => ({ ...prev, [name]: value }));
     }
 
     function handleReset() {
         setNewAction({ player: {}, attackLocation: "", contactLocation: "", digQuality: "" });
-        setNumClicked(0);
     }
 
     function handleUndo() {
         const lastAction = actions[actions.length - 1];
         if (!lastAction) return;
-        
-        fetch(`http://localhost:3000/actions:${lastAction.id}`, {
-            method: "DELETE",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(updated)
-        })
+        fetch(`http://localhost:3000/actions/${lastAction.actionId}`, {
+            method: "DELETE"
+        });
         setActions(actions.slice(0, -1));
     }
 
