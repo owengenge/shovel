@@ -13,6 +13,7 @@ A full-stack web app for volleyball players to track defensive performance in re
 - **Player Management** — Add new or existing players to a session, edit the roster mid-session
 - **Stats Dashboard** — View overall dig stats and per-attack-zone breakdowns with filterable contact location data
 - **Season Tracking** — Sessions are automatically grouped by volleyball season
+- **Session Management** — View, and delete past sessions from a dedicated manage sessions page
 
 ---
 
@@ -59,7 +60,8 @@ src/
 ├── components/
 │   ├── new-session/     # Session creation form and player management
 │   ├── track-session/   # Live dig tracking (attack grid, contact grid, dig quality)
-│   └── stats/           # Stats dashboard and zone breakdowns
+│   ├── stats/           # Stats dashboard and zone breakdowns
+│   └── sessions/        # Manage sessions page and session cards
 ├── utils/               # Helper functions (e.g. season calculation)
 ├── App.jsx              # Root layout and global state
 └── server.js            # Express API
