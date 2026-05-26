@@ -22,8 +22,9 @@ A full-stack web app for volleyball players to track defensive performance in re
 |---|---|
 | Frontend | React 19, React Router 7 |
 | Backend | Node.js, Express 5 |
-| Database | SQLite via Prisma ORM |
+| Database | PostgreSQL via Prisma ORM |
 | Build Tool | Vite |
+| Hosting | Vercel (frontend), Railway (backend), Neon (database) |
 
 ---
 
