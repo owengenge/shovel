@@ -6,7 +6,7 @@ import { sessions as dummySessions, actions as dummyActions } from "./dummyData"
 /** Root layout. Holds global session state and renders the nav and current route. */
 function App() {
   const [sessions, setSessions] = useState([]);
-  const [actions, setActions] = useState([]);
+  const [actions, setActions] = useState([]); 
   const [sessionActive, setSessionActive] = useState(false);
   const [activeSessionId, setActiveSessionId] = useState(null);
 
@@ -30,7 +30,7 @@ function App() {
           <nav>
               <Link to="/">Home</Link>
               {sessionActive && <Link to={`/session/${activeSessionId}`}>Session</Link>}
-              <Link to="/sessions">Sessions</Link>
+              <Link to="/sessions">Manage</Link>
               <Link to="/stats">Stats</Link>
           </nav>
       </header>

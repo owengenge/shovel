@@ -742,6 +742,83 @@
 }
 
 /* ============================================================
+   MANAGE SESSIONS PAGE
+   ============================================================ */
+#no-sessions-msg {
+    color: var(--mute);
+    font-size: 15px;
+    margin-top: 24px;
+}
+
+.sessions-div {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 24px;
+    max-width: 760px;
+}
+
+.session-card {
+    background: var(--surface);
+    border: 1.5px solid var(--line-soft);
+    border-radius: var(--r-lg);
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    transition: border-color 120ms;
+}
+.session-card:hover {
+    border-color: var(--ink);
+}
+
+.session-card-title {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    flex: 1;
+    min-width: 0;
+}
+.session-card-title h2 {
+    font-size: 20px;
+    margin: 0;
+    white-space: nowrap;
+}
+.session-card-title p {
+    font-size: 13px;
+    color: var(--mute);
+    font-weight: 500;
+    margin: 0;
+    white-space: nowrap;
+}
+.session-card > p {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--mute);
+    margin: 0;
+}
+.session-card > button {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border-radius: 50%;
+    background: transparent;
+    border: 1.5px solid var(--line-soft);
+    color: var(--mute);
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+}
+.session-card > button:hover {
+    background: var(--q-error);
+    border-color: var(--q-error);
+    color: white;
+}
+
+/* ============================================================
    STATS PAGE
    ============================================================ */
 .filters-div {

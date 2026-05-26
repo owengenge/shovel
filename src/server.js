@@ -50,7 +50,7 @@ app.post("/sessions", async (req, res) => {
     }
 });
 
-// Delete session by id
+// Delete session by id along with all actions tied to that session
 app.delete("/sessions/:id", async (req, res) => {
     try {
         await prisma.action.deleteMany({ where: { sessionId: req.params.id } });
