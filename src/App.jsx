@@ -11,13 +11,13 @@ function App() {
   const [activeSessionId, setActiveSessionId] = useState(null);
 
   useEffect(() => {
-    fetch("${import.meta.env.VITE_API_URL}/sessions")
+    fetch(`${import.meta.env.VITE_API_URL}/sessions`)
       .then(res => res.json())
       .then(data => setSessions(data))
   }, []);
 
   useEffect (() => {
-    fetch("${import.meta.env.VITE_API_URL}/actions")
+    fetch(`${import.meta.env.VITE_API_URL}/actions`)
       .then(res => res.json())
       .then(data => setActions(data))
   }, []);
@@ -30,6 +30,7 @@ function App() {
           <nav>
               <Link to="/">Home</Link>
               {sessionActive && <Link to={`/session/${activeSessionId}`}>Session</Link>}
+              <Link to="/sessions">Sessions</Link>
               <Link to="/stats">Stats</Link>
           </nav>
       </header>

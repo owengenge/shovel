@@ -50,6 +50,17 @@ app.post("/sessions", async (req, res) => {
     }
 });
 
+// Delete session by id
+app.delete("/sessions/:id", async (req, res) => {
+    try {
+        await prisma.action.deleteMany({ where: { sessionId: req.params.id } });
+        await prisma.session.delete({ where: { id: req.params.id } });
+        res.json({ message: "Session deleted" });
+    } catch (error) {
+        res.status(500).json({ error: "Failed to delete session" });
+    }
+});
+
 // Get all actions
 app.get("/actions", async (req, res) => {
     try {

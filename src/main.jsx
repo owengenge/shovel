@@ -5,6 +5,7 @@ import App from "./App";
 import Home from "./Components/Home";
 import Session from "./Components/track-session/Session";
 import Stats from "./Components/stats/Stats";
+import ManageSessions from "./Components/sessions/ManageSessions";
 import "./index.css";
 
 const router = createBrowserRouter([
@@ -14,7 +15,8 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Home /> },
       { path: "session/:sessionId", element: <Session/> },
-      { path: "stats", element: <Stats /> }
+      { path: "stats", element: <Stats /> },
+      { path: "sessions", element: <ManageSessions /> }
     ],
   },
 ]);
