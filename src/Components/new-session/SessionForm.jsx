@@ -25,7 +25,7 @@ export default function SessionForm({ sessions, setSessions, players, setPlayers
         }
         const date = new Date();
         const newEntry = { ...newSession, players, sessionId: crypto.randomUUID(), date, season: getSeason(date) };
-        fetch("http://localhost:3000/sessions", {
+        fetch("${import.meta.env.VITE_API_URL}/sessions", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(newEntry)

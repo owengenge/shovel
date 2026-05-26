@@ -11,13 +11,13 @@ function App() {
   const [activeSessionId, setActiveSessionId] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:3000/sessions")
+    fetch("${import.meta.env.VITE_API_URL}/sessions")
       .then(res => res.json())
       .then(data => setSessions(data))
   }, []);
 
   useEffect (() => {
-    fetch("http://localhost:3000/actions")
+    fetch("${import.meta.env.VITE_API_URL}/actions")
       .then(res => res.json())
       .then(data => setActions(data))
   }, []);

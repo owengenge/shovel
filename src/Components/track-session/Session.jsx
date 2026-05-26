@@ -24,7 +24,7 @@ const [ended, setEnded] = useState(false);
     function handleSubmit(e) {
         e.preventDefault();
         const newEntry = { ...newAction, sessionId, actionId: crypto.randomUUID() };
-        fetch("http://localhost:3000/actions", {
+        fetch("${import.meta.env.VITE_API_URL}/actions", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(newEntry)
@@ -46,7 +46,7 @@ const [ended, setEnded] = useState(false);
     function handleUndo() {
         const lastAction = actions[actions.length - 1];
         if (!lastAction) return;
-        fetch(`http://localhost:3000/actions/${lastAction.actionId}`, {
+        fetch(`${import.meta.env.VITE_API_URL}/actions/${lastAction.actionId}`, {
             method: "DELETE"
         });
         setActions(actions.slice(0, -1));
