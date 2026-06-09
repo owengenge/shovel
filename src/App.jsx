@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, Outlet, useLocation } from "react-router";
 import "./App.css";
-import { sessions as dummySessions, actions as dummyActions } from "./dummyData";
 
 /** Root layout. Holds global session state and renders the nav and current route. */
 function App() {
