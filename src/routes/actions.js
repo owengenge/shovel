@@ -1,8 +1,10 @@
 import { Router } from "express";
 import { PrismaClient } from "../generated/prisma/client.js";
+import { PrismaPg } from "@prisma/adapter-pg";
 
 const router = Router();
-const prisma = new PrismaClient({});
+const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL });
+const prisma = new PrismaClient({ adapter });
 
 // GET /actions — returns all actions with player parsed from JSON
 router.get("/", async (req, res) => {
