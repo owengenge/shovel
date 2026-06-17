@@ -1,4 +1,3 @@
-import React from "react";
 import ZoneCard from "./ZoneCard";
 import getContactStats from "../../utils/getContactStats";
 

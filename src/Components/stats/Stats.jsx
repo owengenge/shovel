@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useOutletContext } from "react-router";
 import Filter from "./Filter";
 import StatCard from "./StatCard";
@@ -18,15 +18,21 @@ export default function Stats() {
     });
     const [barView, SetBarView] = useState(true);
 
-    // Apply filters 
+    // Filter actions client-side by applying all active filters in sequence.
+    // If it fails a check its not included in filteredActions
     const filteredActions = actions.filter((a) => {
+        // Action-level filters: data lives directly on the action row
         if (filters.sessionId && a.sessionId !== filters.sessionId) return false;
         if (filters.playerId && a.player?.playerId !== filters.playerId) return false;
+
+        // Session-level filters: opponent and season live on the parent session,
+        // so look up the session only when one of these filters is active.
         if (filters.opponent || filters.season) {
             const session = sessions.find((s) => s.sessionId === a.sessionId);
             if (filters.opponent && session?.opponent !== filters.opponent) return false;
             if (filters.season && session?.season !== filters.season) return false;
         }
+
         return true;
     });
 
