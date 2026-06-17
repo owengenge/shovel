@@ -1,4 +1,3 @@
-import React from "react";
 import getAttackStats from "../../utils/getAttackStats";
 import ContactStats from "./ContactStats";
 import qualityClass from "../../utils/qualityClass";
