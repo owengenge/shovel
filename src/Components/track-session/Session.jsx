@@ -24,7 +24,7 @@ const [ended, setEnded] = useState(false);
     function handleSubmit(e) {
         e.preventDefault();
         const newEntry = { ...newAction, sessionId, actionId: crypto.randomUUID() };
-        fetch("${import.meta.env.VITE_API_URL}/actions", {
+        fetch(`${import.meta.env.VITE_API_URL}/actions`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(newEntry)
