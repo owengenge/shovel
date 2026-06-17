@@ -2,7 +2,7 @@ import { Router } from "express";
 import { PrismaClient } from "../generated/prisma/client.js";
 
 const router = Router();
-const prisma = new PrismaClient();
+const prisma = new PrismaClient({});
 
 // GET /actions — returns all actions with player parsed from JSON
 router.get("/", async (req, res) => {
